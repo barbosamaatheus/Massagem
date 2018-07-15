@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.dynatron.projeto.massagem.Fragments.ReceitaFragment">
 
     <LinearLayout
@@ -12,11 +12,6 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            app:cardCornerRadius="4dp"
-            app:cardElevation="3dp"
-            app:cardMaxElevation="3dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -24,14 +19,18 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="3dp"
+            app:cardMaxElevation="3dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false"
 
             >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                >
+                android:background="@color/colorPrimary">
 
                 <EditText
                     android:id="@+id/cliente"
@@ -40,22 +39,39 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_weight="1"
                     android:ems="10"
                     android:hint="Nome do Cliente"
                     android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/dataM"
+
+                <LinearLayout
+                    android:id="@+id/layoutButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/cliente"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Data da Massagem"
-                    android:inputType="date" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/textData"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:hint="Data"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/dataM"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:ems="10"
+                        android:text="CALENDARIO" />
+
+                </LinearLayout>
+
 
                 <EditText
                     android:id="@+id/valorM"
@@ -63,8 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/dataM"
-                    android:layout_weight="1"
+                    android:layout_below="@+id/layoutButton"
                     android:ems="10"
                     android:hint="Valor"
                     android:inputType="numberDecimal" />
@@ -77,7 +92,6 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/valorM"
                     android:layout_marginTop="15dp"
-                    android:layout_weight="1"
                     android:background="@color/colorAccent"
                     android:text="Cadastrar" />
             </RelativeLayout>
@@ -85,11 +99,11 @@
         </android.support.v7.widget.CardView>
 
         <ProgressBar
+            android:id="@+id/pbR"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/pbR"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 

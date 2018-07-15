@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="MainActivity">
+
+    <item
+        android:id="@+id/action_contatos"
+        android:title="Sobre"
+        android:icon="@drawable/contact_ic"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+    <item
+        android:id="@+id/action_add"
+        android:title="Serviços"
+        android:icon="@drawable/icon_add"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        android:titleCondensed="Servico"
+        />
+
+    <item
+        android:id="@+id/action_filtrar"
+        android:title="Filtrar"
+        android:icon="@drawable/export_ic"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+</menu>

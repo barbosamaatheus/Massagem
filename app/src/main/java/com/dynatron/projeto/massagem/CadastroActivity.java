@@ -25,6 +25,7 @@ public class CadastroActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mViewPager.setAdapter(new TabsAdapter(getSupportFragmentManager(), this));
 
@@ -39,7 +40,7 @@ public class CadastroActivity extends AppCompatActivity {
         Intent intent = null;
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent = new Intent(CadastroActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }

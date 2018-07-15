@@ -3,21 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="10dp"
+        >
 
         <TextView
             android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/descricaoD"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/descricaoD"
             android:text="TITULO"
-            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
             android:textStyle="bold" />
 
         <TextView
@@ -28,7 +30,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titulo"
             android:text="Data"
-            android:textSize="15dp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/rs"
@@ -40,7 +42,7 @@
             android:layout_marginEnd="63dp"
             android:layout_marginRight="63dp"
             android:text="R$: "
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/preco"
@@ -50,25 +52,25 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="00,00"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:layout_below="@+id/descricaoD"
-            android:layout_marginTop="17dp"
-            android:background="@color/colorPrimary" />
 
         <ImageView
             android:id="@+id/tipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/descricaoD"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/titulo"
-            android:src="@drawable/up_icon"
-            />
+            android:src="@drawable/up_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_marginTop="35dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark" />
 
 
     </RelativeLayout>

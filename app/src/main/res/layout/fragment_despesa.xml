@@ -45,17 +45,33 @@
                     android:hint="Descrição da Despesa"
                     android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/dataD"
+                <LinearLayout
+                    android:id="@+id/layoutButtonD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/descricaoD"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Data da Despesa"
-                    android:inputType="date" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/textDataD"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:hint="Data"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/dataD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:ems="10"
+                        android:text="CALENDARIO" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/valorD"
@@ -63,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/dataD"
+                    android:layout_below="@+id/layoutButtonD"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Valor"

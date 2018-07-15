@@ -64,8 +64,9 @@ public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyVi
         myViewHolder.mData.setText(mList.get(position).getData());
         myViewHolder.mValor.setText(mList.get(position).getValor());
         if (mList.get(position).getTipo().equals("D")) {
-            Log.w("TAG", "loadPost:onCancelled");
             myViewHolder.mTipo.setImageResource(drawable.down_ic);
+        }else {
+            myViewHolder.mTipo.setImageResource(drawable.up_icon);
         }
 
 

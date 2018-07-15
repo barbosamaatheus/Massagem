@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+
 public class SplashActivity extends AppCompatActivity implements Runnable {
-    private static final long delay = 3500;
+    private static final long delay = 100;
     private ProgressBar progressBar;
 
 
@@ -16,11 +18,11 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_splash);
+       // progressBar = (ProgressBar) findViewById(R.id.progressBar_splash);
 
         Handler h = new Handler();
         h.postDelayed(this, delay);
+
     }
 
     @Override
