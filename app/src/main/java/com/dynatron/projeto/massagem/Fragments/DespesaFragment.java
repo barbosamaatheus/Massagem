@@ -63,8 +63,7 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
                     progressBar.setVisibility(View.VISIBLE);
                     String desc = mDescricao.getText().toString();
                     String data = textData.getText().toString();
-                    String valor = mValor.getText().toString();
-                    //.substring(2);
+                    String valor = mValor.getText().toString().substring(1);
                     Registros r = new Registros(desc, data, valor);
                     r.setTipo("D");
 
@@ -108,8 +107,8 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     private void gerarMascaras() {
-        //Locale mLocale = new Locale("pt", "BR");
-        //mValor.addTextChangedListener(new MoneyTextWatcher(mValor));
+        mValor.addTextChangedListener(new MoneyTextWatcher(mValor));
+
     }
 
     private void initViews(View view){

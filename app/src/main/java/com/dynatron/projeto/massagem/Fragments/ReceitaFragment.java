@@ -1,19 +1,24 @@
 package com.dynatron.projeto.massagem.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
 import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
+import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
 import com.github.rtoshiro.util.format.MaskFormatter;
@@ -30,8 +35,10 @@ import java.util.Locale;
 
 
 public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
-    private EditText mDescricao,  mValor, textData;
+    private EditText mValor, textData;
+    private Spinner mDescricao;
     private Button mData, cadastrarM;
+    private GerenteRegistros gr;
 
     private ProgressBar progressBar;
 
@@ -61,19 +68,19 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
             }
         });
         cadastrarM.setOnClickListener(new View.OnClickListener() {
-            GerenteRegistros gr = (GerenteRegistros) getActivity().getApplicationContext();
+
             @Override
             public void onClick(View v) {
                 try {
                     progressBar.setVisibility(View.VISIBLE);
-                    String desc = mDescricao.getText().toString();
+                    String desc = mDescricao.getSelectedItem().toString();
                     String data = textData.getText().toString();
-                    String valor = mValor.getText().toString();
-                            //.substring(2);
+                    String valor = mValor.getText().toString().substring(1);
                     Registros r = new Registros(desc, data, valor);
                     r.setTipo("R");
                     Log.d("SubString", valor);
                     gr.writeFireStore(r);
+                    gr.editNumTotal(desc, "1");
 
                     Toast toast = Toast.makeText(getActivity(), "Cadastrado Com Sucesso", Toast.LENGTH_SHORT);
                     toast.show();
@@ -83,18 +90,31 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
                     toast.show();
 
                 } finally {
-                    mDescricao.setText("");
+                    mDescricao.setSelected(false);
                     textData.setText("");
                     mValor.setText("");
                     progressBar.setVisibility(View.GONE);
                     gr.readFireStore();
+                    gr.readCliente();
                 }
             }
         });
         return view;
     }
+
     private void gerarMascaras() {
-        //mValor.addTextChangedListener(new MoneyTextWatcher(mValor));
+        mValor.addTextChangedListener(new MoneyTextWatcher(mValor));
+
+    }
+
+    public List<String> getListaNomeClientes() {
+        List<String> nomeClientes = new ArrayList<String>();
+        nomeClientes.add("Nome do Cliente");
+        List<Cliente> clientes = gr.getClientes();
+        for (Cliente c : clientes) {
+            nomeClientes.add(c.getNome().toString());
+        }
+        return nomeClientes;
     }
 
     public void updateData() {
@@ -108,14 +128,33 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
     }
 
+    @SuppressLint("NewApi")
     private void initViews(View view) {
-        mDescricao = (EditText) view.findViewById(R.id.cliente);
+        gr = (GerenteRegistros) getActivity().getApplicationContext();
         mData = (Button) view.findViewById(R.id.dataM);
         mValor = (EditText) view.findViewById(R.id.valorM);
         cadastrarM = (Button) view.findViewById(R.id.cadastrarM);
         progressBar = (ProgressBar) view.findViewById(R.id.pbR);
         textData = (EditText) view.findViewById(R.id.textData);
-        //gerarMascaras();
+
+        mDescricao = (Spinner) view.findViewById(R.id.cliente);
+
+        List<String> categories = getListaNomeClientes();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, categories) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {                    // Disable the second item from Spinner
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mDescricao.setAdapter(adapter);
+
+        gerarMascaras();
     }
 
     @Override

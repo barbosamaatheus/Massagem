@@ -1,22 +1,27 @@
 package com.dynatron.projeto.massagem.Activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.dynatron.projeto.massagem.Adapter.ClienteAdapter;
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Interface.RecyclerViewOnClickListener;
 import com.dynatron.projeto.massagem.R;
 
-public class ClientesActivity extends AppCompatActivity {
+public class ClientesActivity extends AppCompatActivity implements RecyclerViewOnClickListener{
     private Toolbar myToolbar;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ClienteAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private GerenteRegistros gerenteRegistros;
 
@@ -39,9 +44,12 @@ public class ClientesActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_cliente);
         mRecyclerView.setHasFixedSize(true);
+
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
         mAdapter = new ClienteAdapter(this, gerenteRegistros.getClientes());
+        mAdapter.setRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -70,6 +78,10 @@ public class ClientesActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClickListener(View view, int positon) {
+
+    }
 }
 
 

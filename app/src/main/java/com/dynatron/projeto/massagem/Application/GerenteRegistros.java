@@ -18,6 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,8 @@ public class GerenteRegistros extends Application {
     private List<Registros> registros;
     private List<Cliente> clientes;
     private FirebaseFirestore db;
-  // Registros
+
+    // Registros
     @Override
     public void onCreate() {
         super.onCreate();
@@ -111,7 +113,7 @@ public class GerenteRegistros extends Application {
     }
 
     public List<Registros> getRegistros() {
-        //readFireStore();
+        Collections.sort(registros);
         return registros;
     }
 
@@ -121,7 +123,7 @@ public class GerenteRegistros extends Application {
     }
 
 
-  // Clientes
+    // Clientes
 
     public void writeClient(Cliente c) {
         // Create a new user with a first and last name
@@ -163,6 +165,7 @@ public class GerenteRegistros extends Application {
                                 cliente.setTelefone(document.getString("telefone"));
                                 cliente.setEndereço(document.getString("endereco"));
                                 cliente.setNumTotal(document.getString("totalMassagens"));
+                                cliente.setId(document.getId());
                                 clientes.add(cliente);
                                 Log.d("TAG", document.getId() + " => " + document.getData() + " => " + "size:" + registros.size());
                             }
@@ -173,7 +176,32 @@ public class GerenteRegistros extends Application {
                 });
     }
 
+    public void editNumTotal(String nome, String value) {
+
+        int valorM = 0;
+        for (Cliente c : clientes) {
+            if (c.getNome().toString().equals(nome)) {
+                valorM = Integer.parseInt(c.getNumTotal()) + Integer.parseInt(value);
+                db.collection("cliente").document(buscarId(nome))
+                        .update(
+                                "totalMassagens", valorM + ""
+                        );
+            }
+        }
+    }
+
+    public String buscarId(String nome) {
+        String id = "";
+        for (Cliente c : clientes) {
+            if (c.getNome().toString().equals(nome)) {
+                id = c.getId();
+            }
+        }
+        return id;
+    }
+
     public List<Cliente> getClientes() {
+        Collections.sort(clientes);
         return clientes;
     }
 

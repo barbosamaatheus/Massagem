@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dynatron.projeto.massagem.Activity.ClientesActivity;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by User on 16/07/2018.
  */
 
-public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHolder> {
+public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHolder>{
 
     private List<Cliente> mList;
     private LayoutInflater mLayoutInflater;
@@ -31,7 +32,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHo
     }
 
     public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener r) {
-        mRecyclerViewOnClickListener = r;
+        this.mRecyclerViewOnClickListener = r;
     }
 
     @NonNull
@@ -54,6 +55,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHo
         return mList.size();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mNome, mTelefone, mNum;
 
@@ -62,6 +64,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHo
             mNome = (TextView) itemView.findViewById(R.id.nome_cliente);
             mTelefone = (TextView) itemView.findViewById(R.id.telefone_cliente);
             mNum = (TextView) itemView.findViewById(R.id.numero_massagens);
+
 
             itemView.setOnClickListener(this);
         }
@@ -74,4 +77,6 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHo
 
         }
     }
+
+
 }

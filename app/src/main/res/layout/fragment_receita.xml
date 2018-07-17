@@ -32,44 +32,55 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary">
 
-                <EditText
+                <Spinner
                     android:id="@+id/cliente"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:ems="10"
-                    android:hint="Nome do Cliente"
-                    android:inputType="textPersonName" />
-
+                    android:layout_height="?attr/actionBarSize"
+                    android:inputType="textPersonName"
+                    style="@style/ThemeOverlay.AppCompat.Dark"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
                 <LinearLayout
                     android:id="@+id/layoutButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/cliente"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/textData"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:hint="Data"
-                        android:textSize="20sp" />
+                        android:layout_height="0.8dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/white" />
 
-                    <Button
-                        android:id="@+id/dataM"
+                    <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimary"
-                        android:ems="10"
-                        android:text="CALENDARIO" />
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/cliente"
+                        android:orientation="horizontal">
 
+
+                        <EditText
+                            android:id="@+id/textData"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:hint="Data"
+                            android:textSize="20sp" />
+
+                        <Button
+                            android:id="@+id/dataM"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:ems="10"
+                            android:text="CALENDARIO" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
 

@@ -1,10 +1,17 @@
 package com.dynatron.projeto.massagem.Objetos;
 
+import android.support.annotation.NonNull;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
 /**
  * Created by User on 11/07/2018.
  */
 
-public class Registros {
+public class Registros implements Comparable<Registros> {
     private String id;
     private String tipo;
     private String descricao;
@@ -69,5 +76,11 @@ public class Registros {
                 ", data='" + data + '\'' +
                 ", valor='" + valor + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Registros o) {
+        return o.getData().toString().compareTo(this.getData().toString());
+
     }
 }

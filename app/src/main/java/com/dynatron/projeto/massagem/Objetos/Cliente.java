@@ -1,11 +1,13 @@
 package com.dynatron.projeto.massagem.Objetos;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by User on 13/07/2018.
  */
 
-public class Cliente {
-
+public class Cliente  implements Comparable<Cliente>{
+    private String id;
     private String nome;
     private String endereço;
     private String telefone;
@@ -34,6 +36,14 @@ public class Cliente {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -47,6 +57,7 @@ public class Cliente {
                 ", numTotal='" + numTotal + '\'' +
                 '}';
     }
+
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
@@ -76,4 +87,8 @@ public class Cliente {
         this.numTotal = numTotal;
     }
 
+    @Override
+    public int compareTo(@NonNull Cliente o) {
+        return this.getNome().toString().compareTo(o.getNome().toString());
+    }
 }

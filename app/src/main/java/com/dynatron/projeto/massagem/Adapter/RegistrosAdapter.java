@@ -25,18 +25,16 @@ import static com.dynatron.projeto.massagem.R.drawable.*;
  * Created by User on 11/07/2018.
  */
 
-public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyViewHolder> {
+public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyViewHolder>{
     private List<Registros> mList;
     private LayoutInflater mLayoutInflater;
-    private RecyclerViewOnClickListener mRecyclerViewOnClickListener;
+    //private RecyclerViewOnClickListener mRecyclerViewOnClickListener;
 
     public RegistrosAdapter() {
 
     }
 
-    public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener r) {
-        mRecyclerViewOnClickListener = r;
-    }
+
 
 
     public RegistrosAdapter(Context c, List<Registros> l) {
@@ -77,6 +75,8 @@ public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyVi
         return mList.size();
     }
 
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mTitulo, mData, mValor;
         public ImageView mTipo;
@@ -97,11 +97,10 @@ public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyVi
 
         @Override
         public void onClick(View v) {
-            if (mRecyclerViewOnClickListener != null) {
-                mRecyclerViewOnClickListener.onClickListener(v, getPosition());
-            }
+
 
         }
     }
+
 
 }

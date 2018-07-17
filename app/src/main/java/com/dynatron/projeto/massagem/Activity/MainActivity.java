@@ -7,6 +7,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,9 +17,12 @@ import android.widget.TextView;
 
 import com.dynatron.projeto.massagem.Adapter.RegistrosAdapter;
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
 
 import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.action_dashboard:
-                        ///intent = new Intent(MainActivity.this, ReservaActivity.class);
+                        intent = new Intent(MainActivity.this, DashboardActivity.class);
                         break;
                 }
                 startActivity(intent);
