@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <item
         android:id="@+id/action_contatos"
@@ -21,8 +21,8 @@
         />
 
     <item
-        android:id="@+id/action_filtrar"
-        android:title="Filtrar"
+        android:id="@+id/action_dashboard"
+        android:title="Exportar"
         android:icon="@drawable/export_ic"
         android:orderInCategory="100"
         app:showAsAction="withText|always"

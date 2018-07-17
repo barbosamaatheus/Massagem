@@ -36,6 +36,7 @@ public class GerenteRegistros extends Application {
     public void onCreate() {
         super.onCreate();
         registros = new ArrayList<Registros>();
+        clientes = new ArrayList<Cliente>();
         db = FirebaseFirestore.getInstance();
     }
 
@@ -95,10 +96,14 @@ public class GerenteRegistros extends Application {
     public float getValorTotal() {
         float valorTotal = 0;
         for (Registros r : this.registros) {
+
             if (r.getTipo().toString().equals("R")) {
-                valorTotal += Float.parseFloat(r.getValor());
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal += Float.parseFloat(valor);
+
             } else {
-                valorTotal -= Float.parseFloat(r.getValor());
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal -= Float.parseFloat(valor);
             }
 
         }
@@ -106,7 +111,7 @@ public class GerenteRegistros extends Application {
     }
 
     public List<Registros> getRegistros() {
-        readFireStore();
+        //readFireStore();
         return registros;
     }
 
@@ -116,16 +121,15 @@ public class GerenteRegistros extends Application {
     }
 
 
-
   // Clientes
 
     public void writeClient(Cliente c) {
         // Create a new user with a first and last name
         Map<String, Object> cliente = new HashMap<>();
         cliente.put("nome", c.getNome());
+        cliente.put("telefone", c.getTelefone());
         cliente.put("endereco", c.getEndereço());
         cliente.put("totalMassagens", c.getNumTotal());
-        cliente.put("totalMesMassagens", c.getNumMes());
 
         // Add a new document with a generated ID
         db.collection("cliente")
@@ -152,12 +156,13 @@ public class GerenteRegistros extends Application {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            clientes = new ArrayList<Cliente>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Cliente cliente = new Cliente();
                                 cliente.setNome(document.getString("nome"));
+                                cliente.setTelefone(document.getString("telefone"));
                                 cliente.setEndereço(document.getString("endereco"));
                                 cliente.setNumTotal(document.getString("totalMassagens"));
-                                cliente.setNumMes(document.getString("totalMesMassagens"));
                                 clientes.add(cliente);
                                 Log.d("TAG", document.getId() + " => " + document.getData() + " => " + "size:" + registros.size());
                             }
@@ -168,7 +173,11 @@ public class GerenteRegistros extends Application {
                 });
     }
 
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
 
-
-
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
 }

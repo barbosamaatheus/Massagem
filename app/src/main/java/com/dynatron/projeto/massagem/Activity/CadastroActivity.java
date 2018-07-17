@@ -1,4 +1,4 @@
-package com.dynatron.projeto.massagem;
+package com.dynatron.projeto.massagem.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.dynatron.projeto.massagem.Adapter.TabsAdapter;
+import com.dynatron.projeto.massagem.R;
 
 public class CadastroActivity extends AppCompatActivity {
     private ViewPager mViewPager;

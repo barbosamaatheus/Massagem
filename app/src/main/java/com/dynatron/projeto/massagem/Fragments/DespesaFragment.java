@@ -12,12 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class DespesaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -60,8 +62,9 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
                 try{
                     progressBar.setVisibility(View.VISIBLE);
                     String desc = mDescricao.getText().toString();
-                    String data = mData.getText().toString();
+                    String data = textData.getText().toString();
                     String valor = mValor.getText().toString();
+                    //.substring(2);
                     Registros r = new Registros(desc, data, valor);
                     r.setTipo("D");
 
@@ -104,6 +107,11 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
         textData.setText(date);
     }
 
+    private void gerarMascaras() {
+        //Locale mLocale = new Locale("pt", "BR");
+        //mValor.addTextChangedListener(new MoneyTextWatcher(mValor));
+    }
+
     private void initViews(View view){
 
         mDescricao = (EditText) view.findViewById(R.id.descricaoD);
@@ -112,5 +120,6 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
         mValor = (EditText) view.findViewById(R.id.valorD);
         cadastrarD = (Button) view.findViewById(R.id.cadastrarD);
         progressBar = (ProgressBar) view.findViewById(R.id.pbD);
+        gerarMascaras();
     }
 }
