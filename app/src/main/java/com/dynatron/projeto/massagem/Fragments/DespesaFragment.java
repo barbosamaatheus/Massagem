@@ -119,6 +119,6 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
         mValor = (EditText) view.findViewById(R.id.valorD);
         cadastrarD = (Button) view.findViewById(R.id.cadastrarD);
         progressBar = (ProgressBar) view.findViewById(R.id.pbD);
-        gerarMascaras();
+        //gerarMascaras();
     }
 }

@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.dynatron.projeto.massagem.Activity.DashboardActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/fundoClaro">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registros"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph01"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph02"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clientes ---- EM BREVE"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph03"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph04"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

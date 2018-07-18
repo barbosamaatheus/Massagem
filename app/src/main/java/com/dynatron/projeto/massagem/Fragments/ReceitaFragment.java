@@ -154,7 +154,7 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mDescricao.setAdapter(adapter);
 
-        gerarMascaras();
+        //gerarMascaras();
     }
 
     @Override
