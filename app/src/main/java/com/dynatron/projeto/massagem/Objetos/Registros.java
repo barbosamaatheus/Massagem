@@ -1,10 +1,10 @@
 package com.dynatron.projeto.massagem.Objetos;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -80,7 +80,20 @@ public class Registros implements Comparable<Registros> {
 
     @Override
     public int compareTo(@NonNull Registros o) {
-        return o.getData().toString().compareTo(this.getData().toString());
+        Date data1 = converterData(o.getData().toString());
+        Date data2 = converterData(this.getData().toString());
+        return data1.compareTo(data2);
+    }
+
+    private Date converterData(String dataRecebida){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataFormatada = null;
+        try {
+            dataFormatada = formato.parse(dataRecebida);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dataFormatada;
 
     }
 }

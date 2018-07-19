@@ -75,7 +75,8 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
                     progressBar.setVisibility(View.VISIBLE);
                     String desc = mDescricao.getSelectedItem().toString();
                     String data = textData.getText().toString();
-                    String valor = mValor.getText().toString().substring(1);
+                    String valor = mValor.getText().toString();
+                            //.substring(1);
                     Registros r = new Registros(desc, data, valor);
                     r.setTipo("R");
                     Log.d("SubString", valor);
@@ -127,7 +128,17 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         );
         dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
     }
+    private String editarData(String date) {
+        String[] array = date.split("/");
+        if (array[0].length() == 1) {
+            array[0] = "0" + array[0].toString();
+        }
+        if ((array[1].length() == 1)) {
+            array[1] = "0" + array[1].toString();
+        }
+        return array[0] + "/" + array[1] + "/" + array[2];
 
+    }
     @SuppressLint("NewApi")
     private void initViews(View view) {
         gr = (GerenteRegistros) getActivity().getApplicationContext();
@@ -160,7 +171,7 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-        textData.setText(date);
+        textData.setText(editarData(date));
     }
 
 }

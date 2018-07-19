@@ -23,13 +23,11 @@ import java.util.Locale;
 
 
 public class DespesaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
-    private ProgressBar progressBar;
     private EditText mDescricao, textData, mValor;
     private Button mData;
     private Button cadastrarD;
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
-
 
 
     public DespesaFragment() {
@@ -57,13 +55,14 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
 
         cadastrarD.setOnClickListener(new View.OnClickListener() {
             GerenteRegistros gr = (GerenteRegistros) getActivity().getApplicationContext();
+
             @Override
             public void onClick(View v) {
-                try{
-                    progressBar.setVisibility(View.VISIBLE);
+                try {
                     String desc = mDescricao.getText().toString();
                     String data = textData.getText().toString();
-                    String valor = mValor.getText().toString().substring(1);
+                    String valor = mValor.getText().toString();
+                    //.substring(1);
                     Registros r = new Registros(desc, data, valor);
                     r.setTipo("D");
 
@@ -72,16 +71,14 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
                     Toast toast = Toast.makeText(getActivity(), "Cadastrado Com Sucesso", Toast.LENGTH_SHORT);
                     toast.show();
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast toast = Toast.makeText(getActivity(), "Erro! Tente novamente.", Toast.LENGTH_SHORT);
                     toast.show();
-                }finally {
+                } finally {
                     mDescricao.setText("");
                     textData.setText("");
                     mValor.setText("");
-                    progressBar.setVisibility(View.GONE);
                     gr.readFireStore();
-
                 }
 
             }
@@ -102,8 +99,21 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        textData.setText(date);
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+
+        textData.setText(editarData(date));
+    }
+
+    private String editarData(String date) {
+        String[] array = date.split("/");
+        if (array[0].length() == 1) {
+            array[0] = "0" + array[0].toString();
+        }
+        if ((array[1].length() == 1)) {
+            array[1] = "0" + array[1].toString();
+        }
+        return array[0] + "/" + array[1] + "/" + array[2];
+
     }
 
     private void gerarMascaras() {
@@ -111,14 +121,12 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
 
     }
 
-    private void initViews(View view){
+    private void initViews(View view) {
 
         mDescricao = (EditText) view.findViewById(R.id.descricaoD);
         textData = (EditText) view.findViewById(R.id.textDataD);
         mData = (Button) view.findViewById(R.id.dataD);
         mValor = (EditText) view.findViewById(R.id.valorD);
         cadastrarD = (Button) view.findViewById(R.id.cadastrarD);
-        progressBar = (ProgressBar) view.findViewById(R.id.pbD);
-        //gerarMascaras();
     }
 }
