@@ -115,6 +115,7 @@ public class DashboardActivity extends AppCompatActivity {
         setLineSeriesDefault(series4, R.color.colorAccent);
         editGraph(graph4, "Grafico 4 - Receita por Cliente", 0, gerenteRegistros.getClientes().size());
         setLabels(graph4);
+
         graph4.addSeries(series4);
     }
 
@@ -179,7 +180,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         for (Registros r : gerenteRegistros.getRegistros()) {
             if (r.getTipo().toString().equals("R")) {
-                if (r.getDescricao().equals(gerenteRegistros.getClientes().get(position).getNome())) {
+                if (r.getDescricao().equalsIgnoreCase(gerenteRegistros.getClientes().get(position).getNome())) {
                     valor += Float.parseFloat(r.getValor());
                 }
 

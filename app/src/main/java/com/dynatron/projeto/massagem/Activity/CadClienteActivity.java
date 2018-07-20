@@ -1,6 +1,8 @@
 package com.dynatron.projeto.massagem.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -34,37 +36,71 @@ public class CadClienteActivity extends AppCompatActivity {
         cadastrarC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String nome = gerarNome();
-                    String telefone = mTelefone.getText().toString();
-                    String endereco = gerarEndereço();
-                    
-                    Cliente c = new Cliente(nome, telefone, endereco);
-                    gerenteRegistros.writeClient(c);
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "Cadastrado Com Sucesso", Toast.LENGTH_SHORT);
-                    toast.show();
+                try {
+                    if(!validarCampos(mNome.getText().toString())){
+                        String nome = gerarNome();
+                        String telefone = mTelefone.getText().toString();
+                        String endereco = gerarEndereço();
+                        Cliente c = new Cliente(nome, telefone, endereco);
+                        gerenteRegistros.writeClient(c);
+                        alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
+                    }
 
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Erro! Tente novamente.", Toast.LENGTH_SHORT);
-                    toast.show();
+                    alertDialog("Erro ao Cadastrar! \n Verifique se preencheu todos os campos e tente novamente",
+                            "Tentar Novamente", "Voltar p/ Registros");
 
                 } finally {
-                    mNome.setText("");
-                    mSobrenome.setText("");
-                    mTelefone.setText("");
-                    mLogradouro.setText("");
-                    mBairro.setText("");
-                    mCep.setText("");
-                    mNumero.setText("");
-                    mComplemento.setText("");
-                    
                     gerenteRegistros.readCliente();
                 }
-                
+
             }
         });
 
+    }
+
+    public boolean validarCampos(String nome) {
+        View focus = null;
+        boolean exibir = false;
+
+        if (nome.isEmpty()) {
+            mNome.setError("Campo vazio");
+            focus = mNome;
+            exibir = true;
+        }
+        if (exibir) {
+            focus.requestFocus();
+        }
+        return exibir;
+
+    }
+
+    private void alertDialog(String msg, String p, String n) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setTitle("Cadastro");
+        builder.setMessage(msg)
+                .setPositiveButton(p, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mNome.setText("");
+                        mSobrenome.setText("");
+                        mTelefone.setText("");
+                        mLogradouro.setText("");
+                        mBairro.setText("");
+                        mCep.setText("");
+                        mNumero.setText("");
+                        mComplemento.setText("");
+                    }
+                })
+                .setNegativeButton(n, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private String gerarNome() {
@@ -78,8 +114,7 @@ public class CadClienteActivity extends AppCompatActivity {
         return end;
     }
 
-
-    public void initViews(){
+    public void initViews() {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Cadastro de Clientes");
         setSupportActionBar(myToolbar);

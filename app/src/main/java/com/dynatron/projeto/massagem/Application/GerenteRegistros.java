@@ -78,7 +78,7 @@ public class GerenteRegistros extends Application {
                             registros = new ArrayList<Registros>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Registros regs = new Registros();
-                                regs.setDescricao(document.getString("descricao"));
+                                regs.setDescricao(document.getString("descricao").toUpperCase());
                                 regs.setData(document.getString("data"));
                                 regs.setValor(document.getString("valor"));
                                 regs.setTipo(document.getString("tipo"));

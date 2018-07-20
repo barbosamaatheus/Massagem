@@ -1,16 +1,21 @@
 package com.dynatron.projeto.massagem.Fragments;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.dynatron.projeto.massagem.Activity.MainActivity;
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
 import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
 import com.dynatron.projeto.massagem.Objetos.Registros;
@@ -24,20 +29,17 @@ import java.util.Locale;
 
 public class DespesaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private EditText mDescricao, textData, mValor;
-    private Button mData;
+    private ImageButton mData;
     private Button cadastrarD;
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
 
-
     public DespesaFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,22 +64,17 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
                     String desc = mDescricao.getText().toString();
                     String data = textData.getText().toString();
                     String valor = mValor.getText().toString();
-                    //.substring(1);
-                    Registros r = new Registros(desc, data, valor);
-                    r.setTipo("D");
 
-                    gr.writeFireStore(r);
-
-                    Toast toast = Toast.makeText(getActivity(), "Cadastrado Com Sucesso", Toast.LENGTH_SHORT);
-                    toast.show();
-
+                    if(!validarCampos(desc,data,valor)){
+                        Registros r = new Registros(desc, data, valor);
+                        r.setTipo("D");
+                        gr.writeFireStore(r);
+                        alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
+                    }
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(getActivity(), "Erro! Tente novamente.", Toast.LENGTH_SHORT);
-                    toast.show();
+                    alertDialog("Erro ao Cadastrar! \n Verifique se preencheu todos os campos e tente novamente",
+                            "Tentar Novamente", "Voltar p/ Registros");
                 } finally {
-                    mDescricao.setText("");
-                    textData.setText("");
-                    mValor.setText("");
                     gr.readFireStore();
                 }
 
@@ -122,11 +119,59 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     private void initViews(View view) {
-
         mDescricao = (EditText) view.findViewById(R.id.descricaoD);
         textData = (EditText) view.findViewById(R.id.textDataD);
-        mData = (Button) view.findViewById(R.id.dataD);
+        mData = (ImageButton) view.findViewById(R.id.dataD);
         mValor = (EditText) view.findViewById(R.id.valorD);
         cadastrarD = (Button) view.findViewById(R.id.cadastrarD);
+    }
+
+    public boolean validarCampos(String desc,String data, String valor ) {
+
+        View focus = null;
+        boolean exibir = false;
+        if (desc.equals("Nome do Cliente")) {
+            mDescricao.setFocusable(true);
+            mDescricao.setFocusableInTouchMode(true);
+            exibir = true;
+        }
+
+        if (data.isEmpty()) {
+            textData.setError("Campo vazio");
+            focus = textData;
+            exibir = true;
+        }
+        if (valor.isEmpty()) {
+            mValor.setError("Campo vazio ");
+            focus = mValor;
+            exibir = true;
+        }
+        if (exibir) {
+            focus.requestFocus();
+        }
+        return exibir;
+
+    }
+
+    private void alertDialog(String msg, String p, String n){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Cadastro");
+        builder.setMessage(msg)
+                .setPositiveButton(p, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mDescricao.setText("");
+                        textData.setText("");
+                        mValor.setText("");
+                    }
+                })
+                .setNegativeButton(n, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

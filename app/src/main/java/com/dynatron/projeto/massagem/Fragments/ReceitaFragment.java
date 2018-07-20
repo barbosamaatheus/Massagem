@@ -1,8 +1,11 @@
 package com.dynatron.projeto.massagem.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dynatron.projeto.massagem.Activity.MainActivity;
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
 import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
@@ -37,16 +42,15 @@ import java.util.Locale;
 public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private EditText mValor, textData;
     private Spinner mDescricao;
-    private Button mData, cadastrarM;
+    private Button cadastrarM;
+    private ImageButton mData;
     private GerenteRegistros gr;
 
-    private ProgressBar progressBar;
 
     public ReceitaFragment() {
 
     }
 
-    private List<Registros> registros = new ArrayList<Registros>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,30 +75,25 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
 
             @Override
             public void onClick(View v) {
+                String desc = mDescricao.getSelectedItem().toString();
+                String data = textData.getText().toString();
+                String valor = mValor.getText().toString();
                 try {
-                    progressBar.setVisibility(View.VISIBLE);
-                    String desc = mDescricao.getSelectedItem().toString();
-                    String data = textData.getText().toString();
-                    String valor = mValor.getText().toString();
-                            //.substring(1);
-                    Registros r = new Registros(desc, data, valor);
-                    r.setTipo("R");
-                    Log.d("SubString", valor);
-                    gr.writeFireStore(r);
-                    gr.editNumTotal(desc, "1");
-
-                    Toast toast = Toast.makeText(getActivity(), "Cadastrado Com Sucesso", Toast.LENGTH_SHORT);
-                    toast.show();
+                   if (!validarCampos(desc, data, valor)){
+                       Registros r = new Registros(desc, data, valor);
+                       r.setTipo("R");
+                       gr.writeFireStore(r);
+                       gr.editNumTotal(desc, "1");
+                       alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
+                   }
 
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(getActivity(), "Erro! Tente novamente.", Toast.LENGTH_SHORT);
-                    toast.show();
+                    alertDialog("Erro ao Cadastrar! \n Verifique se preencheu todos os campos e tente novamente",
+                            "Tentar Novamente", "Voltar p/ Registros");
+                    /*Toast toast = Toast.makeText(getActivity(), "Erro! Tente novamente.", Toast.LENGTH_SHORT);
+                    toast.show();*/
 
                 } finally {
-                    mDescricao.setSelected(false);
-                    textData.setText("");
-                    mValor.setText("");
-                    progressBar.setVisibility(View.GONE);
                     gr.readFireStore();
                     gr.readCliente();
                 }
@@ -128,6 +127,7 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         );
         dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
     }
+
     private String editarData(String date) {
         String[] array = date.split("/");
         if (array[0].length() == 1) {
@@ -139,15 +139,14 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         return array[0] + "/" + array[1] + "/" + array[2];
 
     }
+
     @SuppressLint("NewApi")
     private void initViews(View view) {
         gr = (GerenteRegistros) getActivity().getApplicationContext();
-        mData = (Button) view.findViewById(R.id.dataM);
+        mData = (ImageButton) view.findViewById(R.id.dataM);
         mValor = (EditText) view.findViewById(R.id.valorM);
         cadastrarM = (Button) view.findViewById(R.id.cadastrarM);
-        progressBar = (ProgressBar) view.findViewById(R.id.pbR);
         textData = (EditText) view.findViewById(R.id.textData);
-
         mDescricao = (Spinner) view.findViewById(R.id.cliente);
 
         List<String> categories = getListaNomeClientes();
@@ -165,13 +164,61 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mDescricao.setAdapter(adapter);
 
-        //gerarMascaras();
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         textData.setText(editarData(date));
+    }
+
+    public boolean validarCampos(String desc,String data, String valor ) {
+
+        View focus = null;
+        boolean exibir = false;
+        if (desc.equals("Nome do Cliente")) {
+            mDescricao.setFocusable(true);
+            mDescricao.setFocusableInTouchMode(true);
+            exibir = true;
+        }
+
+        if (data.isEmpty()) {
+            textData.setError("Campo vazio");
+            focus = textData;
+            exibir = true;
+        }
+        if (valor.isEmpty()) {
+            mValor.setError("Campo vazio ");
+            focus = mValor;
+            exibir = true;
+        }
+        if (exibir) {
+            focus.requestFocus();
+        }
+        return exibir;
+
+    }
+
+    private void alertDialog(String msg, String p, String n){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Cadastro");
+        builder.setMessage(msg)
+                .setPositiveButton(p, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mDescricao.setSelected(false);
+                        textData.setText("");
+                        mValor.setText("");
+                    }
+                })
+                .setNegativeButton(n, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
