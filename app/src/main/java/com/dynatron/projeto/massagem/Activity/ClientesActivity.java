@@ -80,7 +80,9 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
 
     @Override
     public void onClickListener(View view, int positon) {
-
+        Intent intent = new Intent(getApplicationContext(), DetalhesClienteActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

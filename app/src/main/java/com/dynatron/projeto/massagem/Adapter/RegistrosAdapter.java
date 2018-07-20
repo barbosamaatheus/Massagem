@@ -2,6 +2,7 @@ package com.dynatron.projeto.massagem.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dynatron.projeto.massagem.Activity.DetalhesClienteActivity;
 import com.dynatron.projeto.massagem.Interface.RecyclerViewOnClickListener;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
@@ -28,15 +30,11 @@ import static com.dynatron.projeto.massagem.R.drawable.*;
 public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyViewHolder>{
     private List<Registros> mList;
     private LayoutInflater mLayoutInflater;
-    //private RecyclerViewOnClickListener mRecyclerViewOnClickListener;
+    private RecyclerViewOnClickListener mRecyclerViewOnClickListener;
 
     public RegistrosAdapter() {
 
     }
-
-
-
-
     public RegistrosAdapter(Context c, List<Registros> l) {
         mList = l;
         mLayoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -97,7 +95,6 @@ public class RegistrosAdapter extends RecyclerView.Adapter<RegistrosAdapter.MyVi
 
         @Override
         public void onClick(View v) {
-
 
         }
     }

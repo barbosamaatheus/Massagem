@@ -21,7 +21,8 @@
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ClientesActivity" />
         <activity android:name=".Activity.CadClienteActivity" />
-        <activity android:name=".Activity.DashboardActivity"></activity>
+        <activity android:name=".Activity.DashboardActivity" />
+        <activity android:name=".Activity.DetalhesClienteActivity"></activity>
     </application>
 
 </manifest>
