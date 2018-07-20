@@ -138,8 +138,8 @@ public class DashboardActivity extends AppCompatActivity {
         labels.getViewport().setXAxisBoundsManual(true);
         labels.getViewport().setMinX(min);
         labels.getViewport().setMaxX(max);
-        labels.getViewport().setScalable(false);
-        labels.getViewport().setScrollable(true);
+        labels.getViewport().setScalableY(true);
+        labels.getViewport().setScrollableY(true);
         labels.setTitle(s);
     }
 
@@ -260,20 +260,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void setLabels(GraphView labels) {
-        final List<Cliente> clientes = gerenteRegistros.getClientes();
         labels.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     // show normal x values
-                    for (int i = 0; i < clientes.size(); i++) {
+                    for (int i = 0; i < gerenteRegistros.getClientes().size(); i++) {
                         int j = i /2;
                         if (value == i) {
-                            return clientes.get(j).getNome().substring(0, 2);
+                            return gerenteRegistros.getClientes().get(i).getNome().substring(0, 2);
                         }
-                       /* if (value == j){
-                            return clientes.get(j).getNome().substring(0, 1);
-                        }*/
+                       if (value == j){
+                            return gerenteRegistros.getClientes().get(j).getNome().substring(0, 1);
+                        }
                     }
                 } else {
                     // show currency for y values
