@@ -20,12 +20,16 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+        initView();
+
+    }
+
+    private void initView() {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Cadastro");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mViewPager.setAdapter(new TabsAdapter(getSupportFragmentManager(), this));
@@ -33,7 +37,6 @@ public class CadastroActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
 
     @Override

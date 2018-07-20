@@ -3,7 +3,7 @@
     package="com.dynatron.projeto.massagem">
 
     <application
-        android:name=".Application.GerenteRegistros"
+        android:name=".Application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"

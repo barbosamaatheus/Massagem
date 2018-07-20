@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,28 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Activity.MainActivity;
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
-import com.github.rtoshiro.util.format.MaskFormatter;
-import com.github.rtoshiro.util.format.SimpleMaskFormatter;
-import com.github.rtoshiro.util.format.text.MaskTextWatcher;
-import com.google.firebase.firestore.Query;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 
 public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -44,8 +33,7 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
     private Spinner mDescricao;
     private Button cadastrarM;
     private ImageButton mData;
-    private GerenteRegistros gr;
-
+    private MyApplication myApplication;
 
     public ReceitaFragment() {
 
@@ -82,8 +70,8 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
                    if (!validarCampos(desc, data, valor)){
                        Registros r = new Registros(desc, data, valor);
                        r.setTipo("R");
-                       gr.writeFireStore(r);
-                       gr.editNumTotal(desc, "1");
+                       myApplication.writeRegistros(r);
+                       myApplication.editNumTotal(desc, "1");
                        alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
                    }
 
@@ -94,8 +82,8 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
                     toast.show();*/
 
                 } finally {
-                    gr.readFireStore();
-                    gr.readCliente();
+                    myApplication.readClient();
+                    myApplication.readRegistros();
                 }
             }
         });
@@ -110,7 +98,7 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
     public List<String> getListaNomeClientes() {
         List<String> nomeClientes = new ArrayList<String>();
         nomeClientes.add("Nome do Cliente");
-        List<Cliente> clientes = gr.getClientes();
+        List<Cliente> clientes = myApplication.getClientes();
         for (Cliente c : clientes) {
             nomeClientes.add(c.getNome().toString());
         }
@@ -142,7 +130,8 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
 
     @SuppressLint("NewApi")
     private void initViews(View view) {
-        gr = (GerenteRegistros) getActivity().getApplicationContext();
+        myApplication = (MyApplication) getActivity().getApplicationContext();
+
         mData = (ImageButton) view.findViewById(R.id.dataM);
         mValor = (EditText) view.findViewById(R.id.valorM);
         cadastrarM = (Button) view.findViewById(R.id.cadastrarM);

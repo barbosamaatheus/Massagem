@@ -1,20 +1,17 @@
 package com.dynatron.projeto.massagem.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.dynatron.projeto.massagem.Adapter.ClienteAdapter;
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Interface.RecyclerViewOnClickListener;
 import com.dynatron.projeto.massagem.R;
 
@@ -23,7 +20,7 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
     private RecyclerView mRecyclerView;
     private ClienteAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private GerenteRegistros gerenteRegistros;
+    private MyApplication myApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        gerenteRegistros = (GerenteRegistros) getApplicationContext();
+        myApplication = (MyApplication) getApplicationContext();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_cliente);
         mRecyclerView.setHasFixedSize(true);
@@ -48,7 +45,7 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new ClienteAdapter(this, gerenteRegistros.getClientes());
+        mAdapter = new ClienteAdapter(this, myApplication.getClientes());
         mAdapter.setRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -76,7 +73,6 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onClickListener(View view, int positon) {

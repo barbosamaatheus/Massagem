@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Activity.MainActivity;
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Extras.MoneyTextWatcher;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
@@ -24,13 +22,13 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 
 public class DespesaFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private EditText mDescricao, textData, mValor;
     private ImageButton mData;
     private Button cadastrarD;
+    private MyApplication myApplication;
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
 
@@ -56,8 +54,6 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
         });
 
         cadastrarD.setOnClickListener(new View.OnClickListener() {
-            GerenteRegistros gr = (GerenteRegistros) getActivity().getApplicationContext();
-
             @Override
             public void onClick(View v) {
                 try {
@@ -68,14 +64,14 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
                     if(!validarCampos(desc,data,valor)){
                         Registros r = new Registros(desc, data, valor);
                         r.setTipo("D");
-                        gr.writeFireStore(r);
+                        myApplication.writeRegistros(r);
                         alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
                     }
                 } catch (Exception e) {
                     alertDialog("Erro ao Cadastrar! \n Verifique se preencheu todos os campos e tente novamente",
                             "Tentar Novamente", "Voltar p/ Registros");
                 } finally {
-                    gr.readFireStore();
+                    myApplication.readRegistros();
                 }
 
             }
@@ -124,6 +120,7 @@ public class DespesaFragment extends Fragment implements DatePickerDialog.OnDate
         mData = (ImageButton) view.findViewById(R.id.dataD);
         mValor = (EditText) view.findViewById(R.id.valorD);
         cadastrarD = (Button) view.findViewById(R.id.cadastrarD);
+        myApplication = (MyApplication) getActivity().getApplicationContext();
     }
 
     public boolean validarCampos(String desc,String data, String valor ) {

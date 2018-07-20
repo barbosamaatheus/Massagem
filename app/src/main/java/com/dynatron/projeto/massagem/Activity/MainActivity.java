@@ -7,22 +7,16 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dynatron.projeto.massagem.Adapter.RegistrosAdapter;
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
-import com.dynatron.projeto.massagem.Objetos.Registros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.R;
 
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView saldo;
     private ActionMenuView amvMenu;
     private Toolbar myToolbar, mToolbarBottom;
-    private GerenteRegistros gerenteRegistros;
+    private MyApplication myApplication;
 
 
     @Override
@@ -71,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        gerenteRegistros = (GerenteRegistros) getApplicationContext();
-        mAdapter = new RegistrosAdapter(this, gerenteRegistros.getRegistros());
+        myApplication =(MyApplication) getApplicationContext();
+
+        mAdapter = new RegistrosAdapter(this, myApplication.getRegistros());
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Massagem");
@@ -92,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void atualizarSaldo() {
         DecimalFormat df = new DecimalFormat("0.00");
-        saldo.setText(df.format(gerenteRegistros.getValorTotal()));
+        saldo.setText(df.format(myApplication.getValorTotal()));
     }
 
     @Override
@@ -117,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
         startActivity(intent);
         finish();
-        //startActivity(getIntent());
 
     }
 

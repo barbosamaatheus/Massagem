@@ -4,7 +4,6 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.dynatron.projeto.massagem.Adapter.RegistrosAdapter;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,7 +12,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -27,22 +25,24 @@ import java.util.Map;
  * Created by User on 11/07/2018.
  */
 
-public class GerenteRegistros extends Application {
-
-    private List<Registros> registros;
+public class MyApplication extends Application {
     private List<Cliente> clientes;
+    private List<Registros> registros;
     private FirebaseFirestore db;
 
-    // Registros
+    public MyApplication() {
+
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        registros = new ArrayList<Registros>();
         clientes = new ArrayList<Cliente>();
+        registros = new ArrayList<Registros>();
         db = FirebaseFirestore.getInstance();
     }
 
-    public void writeFireStore(Registros r) {
+    public void writeRegistros(Registros r) {
         // Create a new user with a first and last name
         Map<String, Object> registro = new HashMap<>();
         registro.put("descricao", r.getDescricao());
@@ -67,7 +67,7 @@ public class GerenteRegistros extends Application {
                 });
     }
 
-    public void readFireStore() {
+    public void readRegistros() {
 
         db.collection("reg")
                 .get()
@@ -95,36 +95,6 @@ public class GerenteRegistros extends Application {
 
     }
 
-    public float getValorTotal() {
-        float valorTotal = 0;
-        for (Registros r : this.registros) {
-
-            if (r.getTipo().toString().equals("R")) {
-                String valor = r.getValor().replaceAll(",", ".");
-                valorTotal += Float.parseFloat(valor);
-
-            } else {
-                String valor = r.getValor().replaceAll(",", ".");
-                valorTotal -= Float.parseFloat(valor);
-            }
-
-        }
-        return valorTotal;
-    }
-
-    public List<Registros> getRegistros() {
-        Collections.sort(registros);
-        return registros;
-    }
-
-    public void setRegistros(List<Registros> registros) {
-        this.registros = registros;
-
-    }
-
-
-    // Clientes
-
     public void writeClient(Cliente c) {
         // Create a new user with a first and last name
         Map<String, Object> cliente = new HashMap<>();
@@ -151,7 +121,7 @@ public class GerenteRegistros extends Application {
 
     }
 
-    public void readCliente() {
+    public void readClient() {
         db.collection("cliente")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -174,6 +144,15 @@ public class GerenteRegistros extends Application {
                         }
                     }
                 });
+
+    }
+
+    public void editClient() {
+
+    }
+
+    public void deleteClient() {
+
     }
 
     public void editNumTotal(String nome, String value) {
@@ -202,10 +181,87 @@ public class GerenteRegistros extends Application {
 
     public List<Cliente> getClientes() {
         Collections.sort(clientes);
-        return clientes;
+        return this.clientes;
     }
 
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
+
+    public List<Registros> getRegistros() {
+        Collections.sort(registros);
+        return registros;
+    }
+
+    public void setRegistros(List<Registros> registros) {
+        this.registros = registros;
+
+    }
+
+
+    public float getValorTotal() {
+        float valorTotal = 0;
+        for (Registros r : this.registros) {
+
+            if (r.getTipo().toString().equals("R")) {
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal += Float.parseFloat(valor);
+
+            } else {
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal -= Float.parseFloat(valor);
+            }
+
+        }
+        return valorTotal;
+    }
+
+    public float getValorMes(int mes) {
+        float valor = 0;
+        for (Registros r : this.registros) {
+            String[] dataArray = r.getData().toString().split("/");
+            Log.d("dataArray", dataArray[1]);
+            if (Integer.parseInt(dataArray[1]) == mes) {
+                if (r.getTipo().toString().equals("R")) {
+                    valor += Float.parseFloat(r.getValor());
+                } else {
+                    valor -= Float.parseFloat(r.getValor());
+                }
+
+                Log.d("dataArray", valor + "");
+            }
+
+        }
+        return valor;
+    }
+
+    public float getReceita() {
+        float valor = 0;
+        for (Registros r : this.registros) {
+            if (r.getTipo().toString().equals("R")) {
+                valor += Float.parseFloat(r.getValor());
+            }
+        }
+        return valor;
+    }
+
+    public float getReceitaCliente(int position) {
+        float valor = 0;
+        GerenteRegistros gerenteRegistros = new GerenteRegistros();
+        for (Registros r : gerenteRegistros.getRegistros()) {
+            if (r.getTipo().toString().equals("R")) {
+                if (r.getDescricao().equalsIgnoreCase(this.clientes.get(position).getNome())) {
+                    valor += Float.parseFloat(r.getValor());
+                }
+
+            }
+        }
+        return valor;
+    }
+
+    public int getNumMassagnesCliente(int position) {
+        return Integer.parseInt(this.clientes.get(position).getNumTotal());
+    }
+
+
 }

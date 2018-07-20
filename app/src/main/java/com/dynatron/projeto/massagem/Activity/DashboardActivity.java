@@ -5,26 +5,20 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
-import com.dynatron.projeto.massagem.Objetos.Cliente;
-import com.dynatron.projeto.massagem.Objetos.Registros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.R;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.List;
-
 public class DashboardActivity extends AppCompatActivity {
     private Toolbar myToolbar;
-    GerenteRegistros gerenteRegistros;
+    private MyApplication myApplication;
     private GraphView graph, graph2, graph3, graph4;
 
 
@@ -43,7 +37,7 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        gerenteRegistros = (GerenteRegistros) getApplicationContext();
+        myApplication = (MyApplication) getApplicationContext();
 
         graph = (GraphView) findViewById(R.id.graph01);
         graph2 = (GraphView) findViewById(R.id.graph02);
@@ -59,18 +53,18 @@ public class DashboardActivity extends AppCompatActivity {
     private void initGraph01() {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
 
-                new DataPoint(1, getValorMes(1)),
-                new DataPoint(2, getValorMes(2)),
-                new DataPoint(3, getValorMes(3)),
-                new DataPoint(4, getValorMes(4)),
-                new DataPoint(5, getValorMes(5)),
-                new DataPoint(6, getValorMes(6)),
-                new DataPoint(7, getValorMes(7)),
-                new DataPoint(8, getValorMes(8)),
-                new DataPoint(9, getValorMes(9)),
-                new DataPoint(10, getValorMes(10)),
-                new DataPoint(11, getValorMes(11)),
-                new DataPoint(12, getValorMes(12))
+                new DataPoint(1, myApplication.getValorMes(1)),
+                new DataPoint(2, myApplication.getValorMes(2)),
+                new DataPoint(3, myApplication.getValorMes(3)),
+                new DataPoint(4, myApplication.getValorMes(4)),
+                new DataPoint(5, myApplication.getValorMes(5)),
+                new DataPoint(6, myApplication.getValorMes(6)),
+                new DataPoint(7, myApplication.getValorMes(7)),
+                new DataPoint(8, myApplication.getValorMes(8)),
+                new DataPoint(9, myApplication.getValorMes(9)),
+                new DataPoint(10, myApplication.getValorMes(10)),
+                new DataPoint(11, myApplication.getValorMes(11)),
+                new DataPoint(12, myApplication.getValorMes(12))
 
 
         });
@@ -82,8 +76,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void initGraph02() {
 
-        float receita = getReceita();
-        float despesa = receita - gerenteRegistros.getValorTotal();
+        float receita = myApplication.getReceita();
+        float despesa = receita - myApplication.getValorTotal();
         float valorTotal = receita + despesa;
 
         BarGraphSeries<DataPoint> series2 = new BarGraphSeries<>(new DataPoint[]{
@@ -95,6 +89,7 @@ public class DashboardActivity extends AppCompatActivity {
         series2.setSpacing(10);
         series2.setDrawValuesOnTop(true);
         series2.setValuesOnTopColor(R.color.colorPrimary);
+
         editGraph(graph2, "Grafico 2 - Diferença Entre Receita e Despesa (%)", 0, 4);
 
         graph2.getViewport().setYAxisBoundsManual(true);
@@ -109,29 +104,37 @@ public class DashboardActivity extends AppCompatActivity {
         //Linha1
         LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>(createDataPointsClientes());
         setLineSeriesDefault(series3, R.color.colorPrimary);
-        editGraph(graph3, "Grafico 3 - Quantidade  por Cliente", 0, gerenteRegistros.getClientes().size());
-        setLabels(graph3);
+        editGraph(graph3, "Grafico 3 - Quantidade  por Cliente", 0, myApplication.getClientes().size());
+        editLabelLineGraph(graph3);
         graph3.addSeries(series3);
     }
 
     private void initGraph04() {
         LineGraphSeries<DataPoint> series4 = new LineGraphSeries<>(createDataPointsClientes2());
         setLineSeriesDefault(series4, R.color.colorAccent);
-        editGraph(graph4, "Grafico 4 - Receita por Cliente", 0, gerenteRegistros.getClientes().size());
-        setLabels(graph4);
+        editGraph(graph4, "Grafico 4 - Receita por Cliente", 0, myApplication.getClientes().size());
+        editLabelLineGraph(graph4);
         graph4.addSeries(series4);
     }
 
-    private DataPoint[] createSerieGraph01() {
-        int j = 1;
-        DataPoint[] dataPoints = new DataPoint[11];
-        for (int i = 0; i < 11; i++) {
-            dataPoints[i] = new DataPoint(j, getValorMes(07));
-            j++;
-            Log.d("LOGTAG", j + "j");
+    private DataPoint[] createDataPointsClientes() {
+        DataPoint[] dataPoints = new DataPoint[myApplication.getClientes().size()];
+        for (int i = 0; i < myApplication.getClientes().size(); i++) {
+            dataPoints[i] = new DataPoint(i, myApplication.getNumMassagnesCliente(i));
         }
         return dataPoints;
+    }
 
+    private DataPoint[] createDataPointsClientes2() {
+        DataPoint[] dataPoints = new DataPoint[myApplication.getClientes().size()];
+        for (int i = 0; i < myApplication.getClientes().size(); i++) {
+            dataPoints[i] = new DataPoint(i, myApplication.getReceitaCliente(i));
+        }
+        return dataPoints;
+    }
+
+    private float calculaPorCento(float vt, float valor) {
+        return valor / (vt / 100);
     }
 
     private void editGraph(GraphView labels, String s, int min, int max) {
@@ -141,73 +144,6 @@ public class DashboardActivity extends AppCompatActivity {
         labels.getViewport().setScalableY(true);
         labels.getViewport().setScrollableY(true);
         labels.setTitle(s);
-    }
-
-    private DataPoint[] createDataPointsClientes() {
-        DataPoint[] dataPoints = new DataPoint[gerenteRegistros.getClientes().size()];
-        for (int i = 0; i < gerenteRegistros.getClientes().size(); i++) {
-            dataPoints[i] = new DataPoint(i, getNumMassagnesCliente(i));
-        }
-        return dataPoints;
-    }
-
-    private DataPoint[] createDataPointsClientes2() {
-        DataPoint[] dataPoints = new DataPoint[gerenteRegistros.getClientes().size()];
-        for (int i = 0; i < gerenteRegistros.getClientes().size(); i++) {
-            dataPoints[i] = new DataPoint(i, getReceitaCliente(i));
-        }
-        return dataPoints;
-    }
-
-    private float getValorMes(int mes) {
-        float valor = 0;
-        for (Registros r : gerenteRegistros.getRegistros()) {
-            String[] dataArray = r.getData().toString().split("/");
-            Log.d("dataArray", dataArray[1]);
-            if (Integer.parseInt(dataArray[1]) == mes) {
-                if (r.getTipo().toString().equals("R")) {
-                    valor += Float.parseFloat(r.getValor());
-                } else {
-                    valor -= Float.parseFloat(r.getValor());
-                }
-
-                Log.d("dataArray", valor + "");
-            }
-
-        }
-        return valor;
-    }
-
-    private float getReceitaCliente(int position) {
-        float valor = 0;
-
-        for (Registros r : gerenteRegistros.getRegistros()) {
-            if (r.getTipo().toString().equals("R")) {
-                if (r.getDescricao().equalsIgnoreCase(gerenteRegistros.getClientes().get(position).getNome())) {
-                    valor += Float.parseFloat(r.getValor());
-                }
-
-            }
-        }
-        return valor;
-    }
-
-    private float getReceita() {
-        float valor = 0;
-        for (Registros r : gerenteRegistros.getRegistros()) {
-            if (r.getTipo().toString().equals("R")) {
-                valor += Float.parseFloat(r.getValor());
-            }
-        }
-        return valor;
-    }
-
-    private float calculaPorCento(float vt, float valor) {
-        return valor / (vt / 100);
-    }
-
-    private int getNumMassagnesCliente(int position) {
-        return Integer.parseInt(gerenteRegistros.getClientes().get(position).getNumTotal());
     }
 
     private void editLabelBarGraph(GraphView graph2) {
@@ -247,31 +183,19 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = null;
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void setLabels(GraphView labels) {
+    private void editLabelLineGraph(GraphView labels) {
         labels.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     // show normal x values
-                    for (int i = 0; i < gerenteRegistros.getClientes().size(); i++) {
-                        int j = i /2;
+                    for (int i = 0; i < myApplication.getClientes().size(); i++) {
+                        int j = i / 2;
                         if (value == i) {
-                            return gerenteRegistros.getClientes().get(i).getNome().substring(0, 2);
+                            return myApplication.getClientes().get(i).getNome().substring(0, 2);
                         }
-                       if (value == j){
-                            return gerenteRegistros.getClientes().get(j).getNome().substring(0, 1);
+                        if (value == j) {
+                            return myApplication.getClientes().get(j).getNome().substring(0, 1);
                         }
 
                     }
@@ -291,11 +215,24 @@ public class DashboardActivity extends AppCompatActivity {
         seriesDefaut.setThickness(4);
     }
 
-    private String[] gerarLabels() {
-        String[] labels = new String[gerenteRegistros.getClientes().size()];
-        for(int i = 0; i < labels.length; i++){
-            labels[i]=gerenteRegistros.getClientes().get(i).getNome().substring(0, 1);
+   /* private String[] gerarLabels() {
+        String[] labels = new String[myApplication.getClientes().size()];
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = myApplication.getClientes().get(i).getNome().substring(0, 1);
         }
         return labels;
     }
+*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+

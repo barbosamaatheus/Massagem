@@ -6,17 +6,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
-import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -25,13 +21,12 @@ public class CadClienteActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private EditText mNome, mSobrenome, mTelefone, mLogradouro, mBairro, mCep, mNumero, mComplemento;
     private Button cadastrarC;
-    private GerenteRegistros gerenteRegistros;
+    private MyApplication myApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cad_cliente);
-
         initViews();
         cadastrarC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +38,7 @@ public class CadClienteActivity extends AppCompatActivity {
                         String telefone = mTelefone.getText().toString();
                         String endereco = gerarEndereço();
                         Cliente c = new Cliente(nome, telefone, endereco);
-                        gerenteRegistros.writeClient(c);
+                        myApplication.writeClient(c);
                         alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Clientes");
 
                     }
@@ -53,7 +48,7 @@ public class CadClienteActivity extends AppCompatActivity {
                             "Tentar Novamente", "Voltar p/ Registros");
 
                 } finally {
-                    gerenteRegistros.readCliente();
+                    myApplication.readClient();
                 }
 
             }
@@ -117,8 +112,8 @@ public class CadClienteActivity extends AppCompatActivity {
     }
 
     private String gerarEndereço() {
-        String end = mLogradouro.getText().toString() + ", " + mNumero.getText().toString() + ", " + mBairro.getText().toString() +
-                ", " + mCep.getText().toString() + ", " + mComplemento.getText().toString();
+        String end = mLogradouro.getText().toString() + "//" + mNumero.getText().toString() + "//" +
+                mBairro.getText().toString() + "//" + mCep.getText().toString() + "//" + mComplemento.getText().toString();
         return end;
     }
 
@@ -139,7 +134,7 @@ public class CadClienteActivity extends AppCompatActivity {
         mNumero = (EditText) findViewById(R.id.numC);
         mComplemento = (EditText) findViewById(R.id.complementoC);
         cadastrarC = (Button) findViewById(R.id.cadastrarC);
-        gerenteRegistros = (GerenteRegistros) getApplicationContext();
+        myApplication = (MyApplication) getApplicationContext();
 
         gerarMascaras();
     }
