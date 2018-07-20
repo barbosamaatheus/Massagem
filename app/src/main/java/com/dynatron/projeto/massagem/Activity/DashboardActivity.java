@@ -273,6 +273,7 @@ public class DashboardActivity extends AppCompatActivity {
                        if (value == j){
                             return gerenteRegistros.getClientes().get(j).getNome().substring(0, 1);
                         }
+                        
                     }
                 } else {
                     // show currency for y values
