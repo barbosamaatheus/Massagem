@@ -7,7 +7,8 @@
     <color name="colorReceita">#2E7D32</color>
     <color name="colorDespesa">#D84315</color>
     <color name="fundoClaro">#F5F5F5</color>
-
+    <color name="foreground_material_light">#000000</color>
+    <color name="text_color_secondary">#b2ffffff</color>
 
 
 </resources>

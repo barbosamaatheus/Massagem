@@ -9,14 +9,18 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.dynatron.projeto.massagem.Application.GerenteRegistros;
+import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.dynatron.projeto.massagem.R;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
     private Toolbar myToolbar;
@@ -115,7 +119,6 @@ public class DashboardActivity extends AppCompatActivity {
         setLineSeriesDefault(series4, R.color.colorAccent);
         editGraph(graph4, "Grafico 4 - Receita por Cliente", 0, gerenteRegistros.getClientes().size());
         setLabels(graph4);
-
         graph4.addSeries(series4);
     }
 
@@ -135,8 +138,8 @@ public class DashboardActivity extends AppCompatActivity {
         labels.getViewport().setXAxisBoundsManual(true);
         labels.getViewport().setMinX(min);
         labels.getViewport().setMaxX(max);
-        labels.getViewport().setScalableY(true);
-        labels.getViewport().setScrollableY(true);
+        labels.getViewport().setScalable(false);
+        labels.getViewport().setScrollable(true);
         labels.setTitle(s);
     }
 
@@ -257,15 +260,20 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void setLabels(GraphView labels) {
+        final List<Cliente> clientes = gerenteRegistros.getClientes();
         labels.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     // show normal x values
-                    for (int i = 0; i < gerenteRegistros.getClientes().size(); i++) {
+                    for (int i = 0; i < clientes.size(); i++) {
+                        int j = i /2;
                         if (value == i) {
-                            return gerenteRegistros.getClientes().get(i).getNome().substring(0, 6);
+                            return clientes.get(j).getNome().substring(0, 2);
                         }
+                       /* if (value == j){
+                            return clientes.get(j).getNome().substring(0, 1);
+                        }*/
                     }
                 } else {
                     // show currency for y values
@@ -281,5 +289,13 @@ public class DashboardActivity extends AppCompatActivity {
         seriesDefaut.setColor(color);
         seriesDefaut.setDataPointsRadius(6);
         seriesDefaut.setThickness(4);
+    }
+
+    private String[] gerarLabels() {
+        String[] labels = new String[gerenteRegistros.getClientes().size()];
+        for(int i = 0; i < labels.length; i++){
+            labels[i]=gerenteRegistros.getClientes().get(i).getNome().substring(0, 1);
+        }
+        return labels;
     }
 }

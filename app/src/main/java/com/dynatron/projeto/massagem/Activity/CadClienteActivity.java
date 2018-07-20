@@ -36,15 +36,16 @@ public class CadClienteActivity extends AppCompatActivity {
         cadastrarC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 try {
                     if(!validarCampos(mNome.getText().toString())){
+
                         String nome = gerarNome();
                         String telefone = mTelefone.getText().toString();
                         String endereco = gerarEndereço();
                         Cliente c = new Cliente(nome, telefone, endereco);
                         gerenteRegistros.writeClient(c);
-                        alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Registros");
+                        alertDialog("Cadastrado Com Sucesso!", "Novo Cadastro", "Voltar p/ Clientes");
+
                     }
 
                 } catch (Exception e) {
@@ -78,7 +79,7 @@ public class CadClienteActivity extends AppCompatActivity {
 
     private void alertDialog(String msg, String p, String n) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(CadClienteActivity.this);
         builder.setTitle("Cadastro");
         builder.setMessage(msg)
                 .setPositiveButton(p, new DialogInterface.OnClickListener() {
@@ -93,9 +94,16 @@ public class CadClienteActivity extends AppCompatActivity {
                         mComplemento.setText("");
                     }
                 })
+                .setNeutralButton("Cadastrar Massagens", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
+                        startActivity(intent);
+                    }
+                })
                 .setNegativeButton(n, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), ClientesActivity.class);
                         startActivity(intent);
                     }
                 });
