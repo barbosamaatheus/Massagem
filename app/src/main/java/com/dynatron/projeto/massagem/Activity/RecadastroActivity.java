@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.dynatron.projeto.massagem.Adapter.ClienteAdapter;
 import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.R;
@@ -22,9 +24,8 @@ import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 public class RecadastroActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private EditText mNome, mSobrenome, mTelefone, mLogradouro, mBairro, mCep, mNumero, mComplemento;
-    private ImageButton mSave, mDelete;
     private MyApplication myApplication;
-    private String oldNome;
+    private String idC;
 
 
     @Override
@@ -40,19 +41,6 @@ public class RecadastroActivity extends AppCompatActivity {
             editarCampos(txt);
         }
 
-        mSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
-        mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
-
-            }
-        });
 
     }
 
@@ -74,10 +62,10 @@ public class RecadastroActivity extends AppCompatActivity {
                 String telefone = mTelefone.getText().toString();
                 String endereco = gerarEndereço();
                 Cliente c = new Cliente(nome, telefone, endereco);
-                myApplication.editClient(c, oldNome);
+                myApplication.editClient(c, idC);
                 Toast toast = Toast.makeText(getApplicationContext(), "Edição Realizada Com Sucesso!", Toast.LENGTH_SHORT);
                 toast.show();
-                callClientesActivity();
+                callMainActivity();
             }
 
         } catch (Exception e) {
@@ -98,11 +86,11 @@ public class RecadastroActivity extends AppCompatActivity {
         builder.setMessage(msg)
                 .setPositiveButton(p, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        myApplication.deleteClient(gerarNome());
+                        myApplication.deleteClient(idC);
                         Toast toast = Toast.makeText(getApplicationContext(), "Deletado Com Sucesso!", Toast.LENGTH_SHORT);
                         toast.show();
                         myApplication.readClient();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        callMainActivity();
                     }
                 })
 
@@ -114,10 +102,7 @@ public class RecadastroActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void gerarOldNome() {
-        String nome = mNome.getText().toString() + " " + mSobrenome.getText().toString();
-        this.oldNome = nome;
-    }
+
 
     private void editarCampos(String txt) {
         String[] dados = txt.split("//");
@@ -129,7 +114,7 @@ public class RecadastroActivity extends AppCompatActivity {
         mBairro.setText(dados[5]);
         mCep.setText(dados[6]);
         mComplemento.setText(dados[7]);
-        gerarOldNome();
+        idC = dados[8];
     }
 
     public boolean validarCampos(String nome, String sobrenome) {
@@ -180,8 +165,6 @@ public class RecadastroActivity extends AppCompatActivity {
         mCep = (EditText) findViewById(R.id.cepE);
         mNumero = (EditText) findViewById(R.id.numE);
         mComplemento = (EditText) findViewById(R.id.complementoE);
-        mSave = (ImageButton) findViewById(R.id.eSave);
-        mDelete = (ImageButton) findViewById(R.id.eDelete);
         myApplication = (MyApplication) getApplicationContext();
 
         gerarMascaras();
@@ -196,6 +179,11 @@ public class RecadastroActivity extends AppCompatActivity {
         MaskTextWatcher mtw_tel = new MaskTextWatcher(mTelefone, tel);
         mTelefone.addTextChangedListener(mtw_tel);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save_delete_menu, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,11 +192,23 @@ public class RecadastroActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             callClientesActivity();
         }
+        if (id == R.id.action_save){
+            save();
+        }
+        if(id == R.id.action_delete){
+           delete();
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void callClientesActivity(){
+    private void callClientesActivity() {
         Intent intent = new Intent(getApplicationContext(), ClientesActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void callMainActivity(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
 

@@ -24,6 +24,10 @@
         <activity android:name=".Activity.DashboardActivity" />
         <activity android:name=".Activity.DetalhesClienteActivity" />
         <activity android:name=".Activity.RecadastroActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

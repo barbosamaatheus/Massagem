@@ -32,7 +32,7 @@
 
                 <ImageView
                     android:layout_width="100dp"
-                    android:layout_height="175dp"
+                    android:layout_height="150dp"
                     android:layout_margin="5dp"
                     android:elevation="4dp"
                     android:src="@drawable/avatar_ic" />
@@ -53,9 +53,9 @@
                     <TextView
                         android:id="@+id/dNome"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:text="Matheus"
-                        android:textSize="25sp" />
+                        android:textSize="22sp" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -68,9 +68,9 @@
                     <TextView
                         android:id="@+id/dSobrenome"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:text="Barbosa"
-                        android:textSize="25sp" />
+                        android:textSize="22sp" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -83,9 +83,9 @@
                     <TextView
                         android:id="@+id/dTelefone"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:text="(83) 98812-1204"
-                        android:textSize="25sp" />
+                        android:textSize="22sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -103,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Rua Enf Ana Mª B. De Almeida."
-                android:textSize="25sp" />
+                android:textAlignment="viewStart"
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,9 +128,9 @@
                     <TextView
                         android:id="@+id/dBairro"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:text="Bancarios"
-                        android:textSize="25sp" />
+                        android:layout_height="wrap_content"
+                        android:text="Bairro dos Estados"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -150,9 +151,10 @@
                     <TextView
                         android:id="@+id/dNum"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="1199"
+                        android:textAlignment="textEnd"
                         android:textSize="25sp" />
 
                 </LinearLayout>
@@ -181,7 +183,7 @@
                     <TextView
                         android:id="@+id/dCep"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:text="58052-270"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -189,7 +191,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
@@ -197,16 +199,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="Quantidade de Massagens"
+                        android:text="Quantidade"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/dTotalMassagens"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="0"
+                        android:textAlignment="textEnd"
                         android:textSize="25sp" />
                 </LinearLayout>
 

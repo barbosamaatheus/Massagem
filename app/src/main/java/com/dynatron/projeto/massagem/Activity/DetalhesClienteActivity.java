@@ -24,7 +24,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private TextView mNome, mSobrenome, mTelefone, mLogradouro, mBairro, mCep, mNumero, mComplemento, mTotalMassagens;
     private MyApplication myApplication;
-    private Cliente c;
+    private String idC;
 
 
     @Override
@@ -44,6 +44,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
     private void initClient(String nome) {
         for (Cliente cliente : myApplication.getClientes()) {
             if (cliente.getNome().equalsIgnoreCase(nome)) {
+                idC = cliente.getId();
                 String[] nomeComp = cliente.getNome().split(" ");
                 String[] splitEnde = cliente.getEndereço().split("//");
                 mNome.setText(nomeComp[0]);
@@ -64,7 +65,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
     private void initViews() {
         myApplication = (MyApplication) getApplicationContext();
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tb_dc);
-        myToolbar.setTitle("Cadastro");
+        myToolbar.setTitle("Detalhes");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -108,7 +109,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
                 String txt = mNome.getText().toString() + "//" + mSobrenome.getText().toString() + "//"
                         + mTelefone.getText().toString() + "//" + mLogradouro.getText().toString() + "//" + mNumero.getText().toString() +
                         "//" + mBairro.getText().toString() + "//" + mCep.getText().toString() +
-                        "//" + mComplemento.getText().toString()+"//"+"true";
+                        "//" + mComplemento.getText().toString()+"//"+ idC.toString();
                 Bundle bund = new Bundle();
                 bund.putString("txt", txt);
                 intent.putExtras(bund);

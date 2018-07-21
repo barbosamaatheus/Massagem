@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Application.MyApplication;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
@@ -48,7 +49,7 @@ public class CadClienteActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     alertDialog("Erro ao Cadastrar! \n Verifique se preencheu todos os campos e tente novamente",
-                            "Tentar Novamente", "Voltar p/ Registros");
+                            "Tentar Novamente", "Voltar p/ Clientes");
 
                 } finally {
                     myApplication.readClient();

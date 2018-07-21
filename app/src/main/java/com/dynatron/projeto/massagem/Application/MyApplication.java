@@ -206,14 +206,14 @@ public class MyApplication extends Application {
 
     }
 
-    public void editClient(Cliente c, String oldNome) {
+    public void editClient(Cliente c, String id) {
         Map<String, Object> cliente = new HashMap<>();
         cliente.put("nome", c.getNome());
         cliente.put("telefone", c.getTelefone());
         cliente.put("endereco", c.getEndereço());
         cliente.put("totalMassagens", c.getNumTotal());
 
-        db.collection("cliente").document(buscarId(oldNome))
+        db.collection("cliente").document(id)
                 .set(cliente)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -230,8 +230,8 @@ public class MyApplication extends Application {
 
     }
 
-    public void deleteClient(String nome) {
-        db.collection("cliente").document(buscarId(nome))
+    public void deleteClient(String id) {
+        db.collection("cliente").document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

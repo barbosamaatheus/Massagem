@@ -1,6 +1,7 @@
 package com.dynatron.projeto.massagem.Activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.dynatron.projeto.massagem.Adapter.RegistrosAdapter;
 import com.dynatron.projeto.massagem.Application.MyApplication;
+import com.dynatron.projeto.massagem.Extras.FilterDialogFragment;
 import com.dynatron.projeto.massagem.R;
 
 import java.text.DecimalFormat;
@@ -101,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_replay:
                 restartActivity();
+                break;
+            case R.id.action_filter:
+
+
                 break;
 
         }

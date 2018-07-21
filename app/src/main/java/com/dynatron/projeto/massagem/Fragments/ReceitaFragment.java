@@ -39,7 +39,6 @@ public class ReceitaFragment extends Fragment implements DatePickerDialog.OnDate
 
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
