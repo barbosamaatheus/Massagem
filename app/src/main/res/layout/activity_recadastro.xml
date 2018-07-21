@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.dynatron.projeto.massagem.Activity.CadClienteActivity">
+        tools:context="com.dynatron.projeto.massagem.Activity.RecadastroActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_toolbar"
@@ -49,37 +49,48 @@
                 android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/nomeC"
+                <TextView
+                    android:id="@+id/textView10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nome"
-                    android:inputType="textPersonName" />
+                    android:text="Nome" />
 
                 <EditText
-                    android:id="@+id/sobrenomeC"
+                    android:id="@+id/nomeE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Sobrenome"
                     android:inputType="textPersonName" />
 
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sobrenome" />
+
                 <EditText
-                    android:id="@+id/telefoneC"
+                    android:id="@+id/sobrenomeE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Telefone"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Telefone" />
+
+                <EditText
+                    android:id="@+id/telefoneE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
                     android:inputType="phone" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -110,12 +121,17 @@
                 android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Logradouro" />
+
                 <EditText
-                    android:id="@+id/endC"
+                    android:id="@+id/endE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Logradouro"
                     android:inputType="textPostalAddress" />
 
                 <LinearLayout
@@ -123,41 +139,74 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/bairroC"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="Bairro"
-                        android:inputType="textPostalAddress" />
-
-                    <EditText
-                        android:id="@+id/numC"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:ems="10"
-                        android:hint="Numero"
-                        android:inputType="number" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bairro" />
+
+                        <EditText
+                            android:id="@+id/bairroE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textPostalAddress" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Numero" />
+
+                        <EditText
+                            android:id="@+id/numE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="number" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CEP" />
 
                 <EditText
-                    android:id="@+id/cepC"
+                    android:id="@+id/cepE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="CEP"
                     android:inputType="number" />
 
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Complemento" />
+
                 <EditText
-                    android:id="@+id/complementoC"
+                    android:id="@+id/complementoE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Complemento"
                     android:inputType="textPersonName" />
 
 
@@ -165,18 +214,33 @@
 
         </android.support.v7.widget.CardView>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
 
-        <Button
-            android:id="@+id/cadastrarC"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@color/colorAccent"
-            android:text="Cadastrar" />
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:id="@+id/eDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:ems="10"
+                android:src="@drawable/ic_delete" />
+
+            <ImageButton
+                android:id="@+id/eSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:ems="10"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/ic_save" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

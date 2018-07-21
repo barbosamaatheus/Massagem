@@ -31,8 +31,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="250dp"
+                    android:layout_width="100dp"
+                    android:layout_height="175dp"
                     android:layout_margin="5dp"
                     android:elevation="4dp"
                     android:src="@drawable/avatar_ic" />
@@ -50,10 +50,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dNome"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:text="Matheus"
                         android:textSize="25sp" />
 
@@ -65,10 +65,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dSobrenome"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:text="Barbosa"
                         android:textSize="25sp" />
 
@@ -80,10 +80,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dTelefone"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:text="(83) 98812-1204"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -98,10 +98,10 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/dLogradouro"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="Rua Enf Ana Mª B. De Almeida."
                 android:textSize="25sp" />
 
@@ -124,10 +124,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dBairro"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="45dp"
                         android:text="Bancarios"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -147,10 +147,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dNum"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="45dp"
                         android:gravity="end"
                         android:text="1199"
                         android:textSize="25sp" />
@@ -178,11 +178,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dCep"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-
+                        android:layout_height="45dp"
                         android:text="58052-270"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -202,11 +201,10 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/dTotalMassagens"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-
+                        android:layout_height="45dp"
                         android:gravity="end"
                         android:text="0"
                         android:textSize="25sp" />
@@ -222,44 +220,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/dComplemento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Casa"
                 android:textSize="25sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <ImageButton
-                    android:id="@+id/dDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/background_light"
-                    android:src="@drawable/ic_delete"
-                   />
-
-                <ImageButton
-                    android:id="@+id/dSave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/background_light"
-                    android:src="@drawable/ic_save"
-                    android:text="Salvar" />
-
-
-            </LinearLayout>
-
 
         </LinearLayout>
 

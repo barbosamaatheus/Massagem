@@ -1,45 +1,64 @@
 package com.dynatron.projeto.massagem.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Application.MyApplication;
+import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.R;
 
 public class DetalhesClienteActivity extends AppCompatActivity {
     private Toolbar myToolbar;
-    private EditText mNome, mSobrenome, mTelefone, mLogradouro, mBairro, mCep, mNumero, mComplemento;
-    private ImageButton mDelete, mSave;
+    private TextView mNome, mSobrenome, mTelefone, mLogradouro, mBairro, mCep, mNumero, mComplemento, mTotalMassagens;
     private MyApplication myApplication;
+    private Cliente c;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_cliente);
-        initViews();
 
-        mSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String txt = bundle.getString("txt");
+
+        initViews();
+        initClient(txt);
+
+    }
+
+    private void initClient(String nome) {
+        for (Cliente cliente : myApplication.getClientes()) {
+            if (cliente.getNome().equalsIgnoreCase(nome)) {
+                String[] nomeComp = cliente.getNome().split(" ");
+                String[] splitEnde = cliente.getEndereço().split("//");
+                mNome.setText(nomeComp[0]);
+                mSobrenome.setText(nomeComp[1]);
+                mTelefone.setText(cliente.getTelefone());
+                mLogradouro.setText(splitEnde[0]);
+                mNumero.setText(splitEnde[1]);
+                mBairro.setText(splitEnde[2]);
+                mCep.setText(splitEnde[3]);
+                mComplemento.setText(splitEnde[4]);
+                mTotalMassagens.setText(cliente.getNumTotal());
             }
-        });
-        mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
-            }
-        });
+
+        }
+
     }
 
     private void initViews() {
@@ -50,17 +69,15 @@ public class DetalhesClienteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        mNome = (EditText) findViewById(R.id.dNome);
-        mSobrenome = (EditText) findViewById(R.id.dSobrenome);
-        mTelefone = (EditText) findViewById(R.id.dTelefone);
-        mLogradouro = (EditText) findViewById(R.id.dLogradouro);
-        mBairro = (EditText) findViewById(R.id.dBairro);
-        mCep = (EditText) findViewById(R.id.dCep);
-        mNumero = (EditText) findViewById(R.id.dNum);
-        mComplemento = (EditText) findViewById(R.id.dComplemento);
-        mComplemento = (EditText) findViewById(R.id.dComplemento);
-        mDelete = (ImageButton) findViewById(R.id.dDelete);
-        mSave = (ImageButton) findViewById(R.id.dSave);
+        mNome = (TextView) findViewById(R.id.dNome);
+        mSobrenome = (TextView) findViewById(R.id.dSobrenome);
+        mTelefone = (TextView) findViewById(R.id.dTelefone);
+        mLogradouro = (TextView) findViewById(R.id.dLogradouro);
+        mBairro = (TextView) findViewById(R.id.dBairro);
+        mCep = (TextView) findViewById(R.id.dCep);
+        mNumero = (TextView) findViewById(R.id.dNum);
+        mComplemento = (TextView) findViewById(R.id.dComplemento);
+        mTotalMassagens = (TextView) findViewById(R.id.dTotalMassagens);
 
     }
 
@@ -79,7 +96,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), ClientesActivity.class);
                 break;
             case R.id.action_tel:
-                Uri uri = Uri.parse("tel:" + "83988121204");
+                Uri uri = Uri.parse("tel:" + mTelefone.getText().toString());
                 intent = new Intent(Intent.ACTION_DIAL, uri);
                 break;
             case R.id.action_map:
@@ -87,7 +104,14 @@ public class DetalhesClienteActivity extends AppCompatActivity {
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urii));
                 break;
             case R.id.action_edit:
-                enableCampos(true);
+                intent = new Intent(getApplicationContext(), RecadastroActivity.class);
+                String txt = mNome.getText().toString() + "//" + mSobrenome.getText().toString() + "//"
+                        + mTelefone.getText().toString() + "//" + mLogradouro.getText().toString() + "//" + mNumero.getText().toString() +
+                        "//" + mBairro.getText().toString() + "//" + mCep.getText().toString() +
+                        "//" + mComplemento.getText().toString()+"//"+"true";
+                Bundle bund = new Bundle();
+                bund.putString("txt", txt);
+                intent.putExtras(bund);
 
         }
         startActivity(intent);
@@ -95,30 +119,5 @@ public class DetalhesClienteActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void save() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT);
-        toast.show();
-    }
 
-    private void delete() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT);
-        toast.show();
-
-    }
-
-    private void enableCampos(boolean b) {
-
-        /*mNome.setEnabled(b);
-        mSobrenome.setEnabled(b);
-        mTelefone.setEnabled(b);
-        mLogradouro.setEnabled(b);
-        mBairro.setEnabled(b);
-        mCep.setEnabled(b);
-        mNumero.setEnabled(b);
-        mComplemento.setEnabled(b);*/
-        //mDelete.setVisibility(View.VISIBLE);
-       // mSave.setVisibility(View.VISIBLE);
-
-
-    }
 }

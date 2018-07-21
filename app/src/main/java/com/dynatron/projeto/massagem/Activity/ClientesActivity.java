@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Adapter.ClienteAdapter;
 import com.dynatron.projeto.massagem.Application.MyApplication;
@@ -76,9 +77,14 @@ public class ClientesActivity extends AppCompatActivity implements RecyclerViewO
 
     @Override
     public void onClickListener(View view, int positon) {
+
         Intent intent = new Intent(getApplicationContext(), DetalhesClienteActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("txt", myApplication.getClientes().get(positon).getNome().toUpperCase());
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
+
     }
 }
 

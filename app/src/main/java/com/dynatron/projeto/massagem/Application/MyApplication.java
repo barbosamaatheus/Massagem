@@ -95,6 +95,65 @@ public class MyApplication extends Application {
 
     }
 
+    public List<Registros> getRegistros() {
+        Collections.sort(registros);
+        return registros;
+    }
+
+    public void setRegistros(List<Registros> registros) {
+        this.registros = registros;
+
+    }
+
+    public float getValorTotal() {
+        float valorTotal = 0;
+        for (Registros r : this.registros) {
+
+            if (r.getTipo().toString().equals("R")) {
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal += Float.parseFloat(valor);
+
+            } else {
+                String valor = r.getValor().replaceAll(",", ".");
+                valorTotal -= Float.parseFloat(valor);
+            }
+
+        }
+        return valorTotal;
+    }
+
+    public float getValorMes(int mes) {
+        float valor = 0;
+        for (Registros r : this.registros) {
+            String[] dataArray = r.getData().toString().split("/");
+            Log.d("dataArray", dataArray[1]);
+            if (Integer.parseInt(dataArray[1]) == mes) {
+                if (r.getTipo().toString().equals("R")) {
+                    valor += Float.parseFloat(r.getValor());
+                } else {
+                    valor -= Float.parseFloat(r.getValor());
+                }
+
+                Log.d("dataArray", valor + "");
+            }
+
+        }
+        return valor;
+    }
+
+    public float getReceita() {
+        float valor = 0;
+        for (Registros r : this.registros) {
+            if (r.getTipo().toString().equals("R")) {
+                valor += Float.parseFloat(r.getValor());
+            }
+        }
+        return valor;
+    }
+
+
+    //CLIENTES
+
     public void writeClient(Cliente c) {
         // Create a new user with a first and last name
         Map<String, Object> cliente = new HashMap<>();
@@ -147,11 +206,45 @@ public class MyApplication extends Application {
 
     }
 
-    public void editClient() {
+    public void editClient(Cliente c, String oldNome) {
+        Map<String, Object> cliente = new HashMap<>();
+        cliente.put("nome", c.getNome());
+        cliente.put("telefone", c.getTelefone());
+        cliente.put("endereco", c.getEndereço());
+        cliente.put("totalMassagens", c.getNumTotal());
+
+        db.collection("cliente").document(buscarId(oldNome))
+                .set(cliente)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error writing document", e);
+                    }
+                });
 
     }
 
-    public void deleteClient() {
+    public void deleteClient(String nome) {
+        db.collection("cliente").document(buscarId(nome))
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error deleting document", e);
+                    }
+                });
 
     }
 
@@ -188,67 +281,10 @@ public class MyApplication extends Application {
         this.clientes = clientes;
     }
 
-    public List<Registros> getRegistros() {
-        Collections.sort(registros);
-        return registros;
-    }
-
-    public void setRegistros(List<Registros> registros) {
-        this.registros = registros;
-
-    }
-
-
-    public float getValorTotal() {
-        float valorTotal = 0;
-        for (Registros r : this.registros) {
-
-            if (r.getTipo().toString().equals("R")) {
-                String valor = r.getValor().replaceAll(",", ".");
-                valorTotal += Float.parseFloat(valor);
-
-            } else {
-                String valor = r.getValor().replaceAll(",", ".");
-                valorTotal -= Float.parseFloat(valor);
-            }
-
-        }
-        return valorTotal;
-    }
-
-    public float getValorMes(int mes) {
-        float valor = 0;
-        for (Registros r : this.registros) {
-            String[] dataArray = r.getData().toString().split("/");
-            Log.d("dataArray", dataArray[1]);
-            if (Integer.parseInt(dataArray[1]) == mes) {
-                if (r.getTipo().toString().equals("R")) {
-                    valor += Float.parseFloat(r.getValor());
-                } else {
-                    valor -= Float.parseFloat(r.getValor());
-                }
-
-                Log.d("dataArray", valor + "");
-            }
-
-        }
-        return valor;
-    }
-
-    public float getReceita() {
-        float valor = 0;
-        for (Registros r : this.registros) {
-            if (r.getTipo().toString().equals("R")) {
-                valor += Float.parseFloat(r.getValor());
-            }
-        }
-        return valor;
-    }
-
     public float getReceitaCliente(int position) {
         float valor = 0;
-        GerenteRegistros gerenteRegistros = new GerenteRegistros();
-        for (Registros r : gerenteRegistros.getRegistros()) {
+
+        for (Registros r : this.registros) {
             if (r.getTipo().toString().equals("R")) {
                 if (r.getDescricao().equalsIgnoreCase(this.clientes.get(position).getNome())) {
                     valor += Float.parseFloat(r.getValor());

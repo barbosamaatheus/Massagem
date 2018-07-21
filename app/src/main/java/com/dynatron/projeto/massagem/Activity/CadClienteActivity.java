@@ -23,16 +23,19 @@ public class CadClienteActivity extends AppCompatActivity {
     private Button cadastrarC;
     private MyApplication myApplication;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cad_cliente);
         initViews();
+
+
         cadastrarC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    if(!validarCampos(mNome.getText().toString())){
+                    if(!validarCampos(mNome.getText().toString(), mSobrenome.getText().toString())){
 
                         String nome = gerarNome();
                         String telefone = mTelefone.getText().toString();
@@ -56,13 +59,18 @@ public class CadClienteActivity extends AppCompatActivity {
 
     }
 
-    public boolean validarCampos(String nome) {
+    public boolean validarCampos(String nome, String sobrenome) {
         View focus = null;
         boolean exibir = false;
 
         if (nome.isEmpty()) {
             mNome.setError("Campo vazio");
             focus = mNome;
+            exibir = true;
+        }
+        if (sobrenome.isEmpty()) {
+            mSobrenome.setError("Campo vazio");
+            focus = mSobrenome;
             exibir = true;
         }
         if (exibir) {
@@ -112,8 +120,8 @@ public class CadClienteActivity extends AppCompatActivity {
     }
 
     private String gerarEndereço() {
-        String end = mLogradouro.getText().toString() + "//" + mNumero.getText().toString() + "//" +
-                mBairro.getText().toString() + "//" + mCep.getText().toString() + "//" + mComplemento.getText().toString();
+        String end = mLogradouro.getText().toString() + " // " + mNumero.getText().toString() + " // " +
+                mBairro.getText().toString() + " // " + mCep.getText().toString() + " // " + mComplemento.getText().toString();
         return end;
     }
 
