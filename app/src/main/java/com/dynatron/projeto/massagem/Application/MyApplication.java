@@ -3,7 +3,9 @@ package com.dynatron.projeto.massagem.Application;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.dynatron.projeto.massagem.Activity.ExtratoActivity;
 import com.dynatron.projeto.massagem.Objetos.Cliente;
 import com.dynatron.projeto.massagem.Objetos.Registros;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,10 +32,8 @@ public class MyApplication extends Application {
     private List<Cliente> clientes;
     private List<Registros> registros;
     private FirebaseFirestore db;
-
-    public MyApplication() {
-
-    }
+    private List<String> messes;
+    DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
     public void onCreate() {
@@ -151,7 +152,86 @@ public class MyApplication extends Application {
         return valor;
     }
 
+    //FILTROS
+    private List<Registros> buscarMes(String mes) {
+        List<Registros> registrosDoMes = new ArrayList<Registros>();
+        for (Registros registros : this.registros) {
+            String[] dataSplit = registros.getData().split("/");
+            String mesAno = dataSplit[1] + "/" + dataSplit[2];
+            if (mes.equalsIgnoreCase(mesAno)) {
+                registrosDoMes.add(registros);
+            }
+        }
+        return registrosDoMes;
 
+    }
+
+    public List<String> getMesses() {
+        messes = new ArrayList<String>();
+        for (Registros registros : this.registros) {
+            String[] dataSplit = registros.getData().split("/");
+            String mesAno = dataSplit[1] + "/" + dataSplit[2];
+            if (!messes.contains(mesAno)) {
+                messes.add(mesAno);
+            }
+        }
+        return messes;
+    }
+
+    public String getValorTotalMes(String mes) {
+        float quant = Float.parseFloat(getReceitaMes(mes)) + Float.parseFloat(getDespesaMes(mes));
+        return df.format(quant);
+    }
+
+    public String getQuant(String txt) {
+        int quant = Integer.parseInt(getQuantDespesa(txt)) + Integer.parseInt(getQuantReceita(txt));
+        return quant + "";
+
+    }
+
+    public String getQuantReceita(String txt) {
+        int quant = 0;
+        for (Registros registros : buscarMes(txt)) {
+            if (registros.getTipo().equalsIgnoreCase("R")) {
+                quant += 1;
+            }
+
+        }
+        return quant + "";
+
+    }
+
+    public String getQuantDespesa(String txt) {
+        int quant = 0;
+        for (Registros registros : buscarMes(txt)) {
+            if (registros.getTipo().equalsIgnoreCase("D")) {
+                quant += 1;
+            }
+
+        }
+        return quant + "";
+
+    }
+
+    public String getReceitaMes(String txt) {
+        float quant = 0;
+        for (Registros registros : buscarMes(txt)) {
+            if (registros.getTipo().equalsIgnoreCase("R")) {
+                quant += Float.parseFloat(registros.getValor());
+            }
+        }
+        return df.format(quant);
+    }
+
+    public String getDespesaMes(String mes) {
+        float quant = 0;
+        for (Registros registros : buscarMes(mes)) {
+            if (registros.getTipo().equalsIgnoreCase("D")) {
+                quant -= Float.parseFloat(registros.getValor());
+            }
+        }
+        return df.format(quant);
+    }
     //CLIENTES
 
     public void writeClient(Cliente c) {

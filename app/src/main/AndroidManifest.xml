@@ -23,11 +23,13 @@
         <activity android:name=".Activity.CadClienteActivity" />
         <activity android:name=".Activity.DashboardActivity" />
         <activity android:name=".Activity.DetalhesClienteActivity" />
-        <activity android:name=".Activity.RecadastroActivity"></activity>
+        <activity android:name=".Activity.RecadastroActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".Activity.ExtratoActivity"></activity>
     </application>
 
 </manifest>

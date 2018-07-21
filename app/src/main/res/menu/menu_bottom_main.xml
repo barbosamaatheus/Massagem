@@ -23,7 +23,7 @@
     <item
         android:id="@+id/action_dashboard"
         android:title="Exportar"
-        android:icon="@drawable/export_ic"
+        android:icon="@drawable/dashboard_ic"
         android:orderInCategory="100"
         app:showAsAction="withText|always"
         />

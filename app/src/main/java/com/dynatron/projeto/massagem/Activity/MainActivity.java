@@ -1,7 +1,10 @@
 package com.dynatron.projeto.massagem.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -14,21 +17,22 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.dynatron.projeto.massagem.Adapter.RegistrosAdapter;
+import com.dynatron.projeto.massagem.Adapter.TabsAdapter;
 import com.dynatron.projeto.massagem.Application.MyApplication;
-import com.dynatron.projeto.massagem.Extras.FilterDialogFragment;
+import com.dynatron.projeto.massagem.Fragments.FinancasFragment;
+import com.dynatron.projeto.massagem.Fragments.MassagensFragment;
 import com.dynatron.projeto.massagem.R;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private TextView saldo;
     private ActionMenuView amvMenu;
     private Toolbar myToolbar, mToolbarBottom;
     private MyApplication myApplication;
+    private FragmentManager fm = getSupportFragmentManager();
+
 
 
     @Override
@@ -67,24 +71,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        myApplication =(MyApplication) getApplicationContext();
-
-        mAdapter = new RegistrosAdapter(this, myApplication.getRegistros());
+        myApplication = (MyApplication) getApplicationContext();
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitle("Massagem");
+        myToolbar.setTitle("Registros");
         setSupportActionBar(myToolbar);
 
         saldo = (TextView) findViewById(R.id.saldo);
         amvMenu = (ActionMenuView) findViewById(R.id.amvMenu);
         mToolbarBottom = (Toolbar) findViewById(R.id.inc_tb_bottom);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        initFragment();
         atualizarSaldo();
+    }
+
+    private void initFragment() {
+        FragmentTransaction ft = fm.beginTransaction();
+        MassagensFragment massagensFragment = new MassagensFragment();
+        ft.add(R.id.fragment_content, massagensFragment);
+        ft.commit();
     }
 
     public void atualizarSaldo() {
@@ -105,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 restartActivity();
                 break;
             case R.id.action_filter:
-
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.fragment_content, new FinancasFragment());
+                ft.commit();
 
                 break;
 

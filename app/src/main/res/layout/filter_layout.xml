@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,13 +12,12 @@
         android:layout_height="wrap_content"
         android:paddingRight="10dp"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
         android:gravity="end">
 
         <Button
+            android:id="@+id/aplicarF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:text="Aplicar"
             android:textColor="@color/colorAccent"/>
 
@@ -30,14 +28,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/baloo_thambi"
         android:text="Nome" />
 
     <EditText
+        android:id="@+id/nomeF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:hint="Todos"
         android:textSize="15sp" />
 
@@ -45,14 +41,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_weight="1"
         android:background="@color/colorPrimaryDark" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Data" />
 
     <LinearLayout
@@ -71,15 +65,18 @@
                 android:text="De:" />
 
             <TextClock
+                android:id="@+id/dataDeF"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
+                android:inputType="date"
                 android:text="00/00/0000"
                 tools:ignore="NewApi" />
         </LinearLayout>
 
 
         <ImageButton
+            android:id="@+id/buttonDeF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -96,14 +93,18 @@
                 android:text="Até:" />
 
             <TextClock
+                android:id="@+id/dataAteF"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:text="00/00/0000" />
+                android:inputType="date"
+                android:text="00/00/0000"
+                tools:ignore="NewApi"/>
         </LinearLayout>
 
 
         <ImageButton
+            android:id="@+id/buttonAteF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -128,17 +129,24 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/tipoRecF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Receita" />
 
         <RadioButton
+            android:id="@+id/tipoDesF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Despesa" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark" />
 
 
 </LinearLayout>

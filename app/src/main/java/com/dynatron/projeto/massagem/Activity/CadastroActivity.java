@@ -32,7 +32,9 @@ public class CadastroActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mViewPager.setAdapter(new TabsAdapter(getSupportFragmentManager(), this));
+        mViewPager.setAdapter(new TabsAdapter(getSupportFragmentManager(), this, new String[]{
+                "Receita", "Despesa"
+        }, "cadastro"));
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

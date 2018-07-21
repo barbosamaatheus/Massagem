@@ -109,7 +109,7 @@ public class DetalhesClienteActivity extends AppCompatActivity {
                 String txt = mNome.getText().toString() + "//" + mSobrenome.getText().toString() + "//"
                         + mTelefone.getText().toString() + "//" + mLogradouro.getText().toString() + "//" + mNumero.getText().toString() +
                         "//" + mBairro.getText().toString() + "//" + mCep.getText().toString() +
-                        "//" + mComplemento.getText().toString()+"//"+ idC.toString();
+                        "//" + mComplemento.getText().toString() + "//" + idC.toString();
                 Bundle bund = new Bundle();
                 bund.putString("txt", txt);
                 intent.putExtras(bund);

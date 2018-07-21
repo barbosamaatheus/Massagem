@@ -38,6 +38,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.MyViewHo
     @NonNull
     @Override
     public ClienteAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View v = mLayoutInflater.inflate(R.layout.list_item_cliente, parent, false);
         ClienteAdapter.MyViewHolder mvh = new ClienteAdapter.MyViewHolder(v);
         return mvh;

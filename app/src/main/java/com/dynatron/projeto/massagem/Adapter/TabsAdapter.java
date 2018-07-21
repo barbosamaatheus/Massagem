@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.dynatron.projeto.massagem.Fragments.DespesaFragment;
+import com.dynatron.projeto.massagem.Fragments.FinancasFragment;
+import com.dynatron.projeto.massagem.Fragments.MassagensFragment;
 import com.dynatron.projeto.massagem.Fragments.ReceitaFragment;
 
 
@@ -16,23 +18,36 @@ import com.dynatron.projeto.massagem.Fragments.ReceitaFragment;
  */
 public class TabsAdapter extends FragmentPagerAdapter {
     private Context mContext;
-    private String[] titles = {"Receita","Despesa"};
-
-    public TabsAdapter(FragmentManager fm, Context c) {
+    private String[] titles;
+    private String tipo;
+    public TabsAdapter(FragmentManager fm, Context c, String [] titles, String tipo) {
         super(fm);
         mContext = c;
+        this.titles = titles;
+        this.tipo = tipo;
 
     }
 
     @Override
     public Fragment getItem(int position) {
         Fragment frag = null;
-        if (position == 0){
-            frag = new ReceitaFragment();
+
+        if(tipo.equalsIgnoreCase("cadastro")){
+            if (position == 0){
+                frag = new ReceitaFragment();
+            }
+            else if (position == 1) { // ALL CARS
+                frag = new DespesaFragment();
+            }
+        } else if(this.tipo.equalsIgnoreCase("registros")){
+            if (position == 0){
+                frag = new MassagensFragment();
+            }
+            else if (position == 1) { // ALL CARS
+                frag = new FinancasFragment();
+            }
         }
-        else if (position == 1) { // ALL CARS
-            frag = new DespesaFragment();
-        }
+
 //
 
         Bundle b = new Bundle();
