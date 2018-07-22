@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context="com.dynatron.projeto.massagem.Activity.ExtratoActivity">
 
     <android.support.v7.widget.Toolbar
@@ -17,253 +18,231 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="#FBC02D"
+        android:elevation="4dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-        <android.support.v7.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="3dp"
-            app:cardMaxElevation="3dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="false">
+            android:background="#FBC02D"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FBC02D"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Mes:"
+                android:textColor="#212121"
+                android:textSize="28dp"
+                android:typeface="monospace" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Mes:"
-                        android:textColor="#212121"
-                        android:textSize="28dp"
-                        android:typeface="monospace" />
-
-                    <TextView
-                        android:id="@+id/dataExtrato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:text="00/0000"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
+            <TextView
+                android:id="@+id/dataExtrato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:text="00/0000"
+                android:textColor="#212121"
+                android:textSize="24dp" />
 
 
-                </LinearLayout>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Registros:"
-                        android:textColor="#212121"
-                        android:textSize="28dp" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0"
+                android:fontFamily="monospace"
+                android:text="Registros:"
+                android:textColor="#212121"
+                android:textSize="28dp" />
 
-                    <TextView
-                        android:id="@+id/quantExtrato"
-                        android:layout_width="105dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
-                </LinearLayout>
+            <TextView
+                android:id="@+id/quantExtrato"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textColor="#212121"
+                android:textSize="24dp" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Receitas:"
-                        android:textColor="#212121"
-                        android:textSize="28dp" />
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Receitas:"
+                android:textColor="#212121"
+                android:textSize="28dp" />
 
-                    <TextView
-                        android:id="@+id/quantRExtrato"
-                        android:layout_width="105dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Receita:"
-                        android:textColor="#212121"
-                        android:textSize="28dp" />
+            <TextView
+                android:id="@+id/quantRExtrato"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textColor="#212121"
+                android:textSize="24dp" />
+        </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/receitaExtrato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:text="00.00"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
-                </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Despesas:"
-                        android:textColor="#212121"
-                        android:textSize="28dp" />
-
-                    <TextView
-                        android:id="@+id/quantDExtrato"
-                        android:layout_width="105dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Despesa:"
-                        android:textColor="#212121"
-                        android:textSize="28dp" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Receita:"
+                android:textColor="#212121"
+                android:textSize="28dp" />
 
 
-                    <TextView
-                        android:id="@+id/despesaExtrato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:text="00.00"
-                        android:textColor="#212121"
-                        android:textSize="24dp" />
-                </LinearLayout>
+            <TextView
+                android:id="@+id/receitaExtrato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:text="00.00"
+                android:textColor="#212121"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Despesas:"
+                android:textColor="#212121"
+                android:textSize="28dp" />
+
+            <TextView
+                android:id="@+id/quantDExtrato"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textColor="#212121"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Despesa:"
+                android:textColor="#212121"
+                android:textSize="28dp" />
 
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/black" />
+            <TextView
+                android:id="@+id/despesaExtrato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:text="00.00"
+                android:textColor="#212121"
+                android:textSize="24dp" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#FBC02D"
-                    android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@android:color/black" />
 
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="monospace"
-                        android:text="Total:"
-                        android:textColor="#212121"
-                        android:textSize="30dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FBC02D"
+            android:orientation="horizontal">
 
 
-                    <TextView
-                        android:id="@+id/totalExtrato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:fontFamily="monospace"
-                        android:text="00.00"
-                        android:textColor="#212121"
-                        android:textSize="30dp" />
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:fontFamily="monospace"
+                android:text="Total:"
+                android:textColor="#212121"
+                android:textSize="30dp" />
 
-        </android.support.v7.widget.CardView>
 
+            <TextView
+                android:id="@+id/totalE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="monospace"
+                android:text="00000"
+                android:textColor="#212121"
+                android:textSize="30dp" />
+        </LinearLayout>
     </LinearLayout>
 
 

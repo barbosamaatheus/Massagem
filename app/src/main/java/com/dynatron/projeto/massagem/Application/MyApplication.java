@@ -178,10 +178,20 @@ public class MyApplication extends Application {
         return messes;
     }
 
-    public String getValorTotalMes(String mes) {
-        float quant = Float.parseFloat(getReceitaMes(mes)) + Float.parseFloat(getDespesaMes(mes));
-        return df.format(quant);
+    public String getValorTMes(String mes) {
+        float valor = 0;
+        for (Registros registros : buscarMes(mes)) {
+            if (registros.getTipo().equalsIgnoreCase("R")) {
+                valor += Float.parseFloat(registros.getValor());
+            } else if(registros.getTipo().equalsIgnoreCase("D")){
+                valor -= Float.parseFloat(registros.getValor());
+            }
+
+
+        }
+        return df.format(valor);
     }
+
 
     public String getQuant(String txt) {
         int quant = Integer.parseInt(getQuantDespesa(txt)) + Integer.parseInt(getQuantReceita(txt));

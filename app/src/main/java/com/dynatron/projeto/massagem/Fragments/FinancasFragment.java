@@ -83,13 +83,9 @@ public class FinancasFragment extends Fragment implements RecyclerViewOnClickLis
     @Override
     public void onClickListener(View view, int positon) {
         Intent intent = new Intent(getActivity(), ExtratoActivity.class);
-
         Bundle bundle = new Bundle();
         bundle.putString("txt", datas.get(positon));
         intent.putExtras(bundle);
-        Toast toast = Toast.makeText(getActivity(), datas.get(positon), Toast.LENGTH_SHORT);
-        toast.show();
-
         startActivity(intent);
 
     }

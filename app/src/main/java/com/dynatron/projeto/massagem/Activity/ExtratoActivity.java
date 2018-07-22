@@ -1,52 +1,46 @@
 package com.dynatron.projeto.massagem.Activity;
 
-import android.content.ContentValues;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dynatron.projeto.massagem.Application.MyApplication;
-import com.dynatron.projeto.massagem.Manifest;
 import com.dynatron.projeto.massagem.R;
 
-import java.io.OutputStream;
-
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
-
 public class ExtratoActivity extends AppCompatActivity {
-    private TextView mMes, mQuantR, mReceita, mQuantD, mDespesa, mQuant, mTotal;
+    private TextView mMes, mQuantR, mReceita, mQuantD, mDespesa, mQuant;
+    private TextView mTotal;
     private MyApplication myApplication;
+    private Toolbar myToolbar;
+    private String txt;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extrato);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        txt = bundle.getString("txt");
+
+
         initViews();
 
-    }
-
-    private void initViews() {
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Extrato");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        setCampos(txt);
+    }
 
+    private void initViews() {
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myApplication = (MyApplication) getApplicationContext();
         mMes = (TextView) findViewById(R.id.dataExtrato);
         mQuantR = (TextView) findViewById(R.id.quantRExtrato);
@@ -54,12 +48,7 @@ public class ExtratoActivity extends AppCompatActivity {
         mQuantD = (TextView) findViewById(R.id.quantDExtrato);
         mDespesa = (TextView) findViewById(R.id.despesaExtrato);
         mQuant = (TextView) findViewById(R.id.quantExtrato);
-        mTotal = (TextView) findViewById(R.id.totalExtrato);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        String txt = bundle.getString("txt");
-        setCampos(txt);
-
+        this.mTotal = (TextView) findViewById(R.id.totalE);
     }
 
     @Override
@@ -83,7 +72,7 @@ public class ExtratoActivity extends AppCompatActivity {
         mReceita.setText(myApplication.getReceitaMes(txt));
         mQuantD.setText(myApplication.getQuantDespesa(txt));
         mDespesa.setText(myApplication.getDespesaMes(txt));
-        mTotal.setText(myApplication.getValorTotalMes(txt));
+        this.mTotal.setText(myApplication.getValorTMes(txt));
 
     }
 
