@@ -101,8 +101,14 @@ public class DetalhesClienteActivity extends AppCompatActivity {
                 intent = new Intent(Intent.ACTION_DIAL, uri);
                 break;
             case R.id.action_map:
-                String urii = "https://goo.gl/maps";
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urii));
+                Uri gmmIntentUri = Uri.parse("geo:-7.11532,-34.861?q=" + Uri.encode(getEndereco()));
+                intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                intent.setPackage("com.google.android.apps.maps");
+                if (intent.resolveActivity(getPackageManager()) == null) {
+                    Toast.makeText(getApplicationContext(),
+                            "Não foi possivel completar a operação, por favor, instale o Google Maps no seu dispositivo",
+                            Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.action_edit:
                 intent = new Intent(getApplicationContext(), RecadastroActivity.class);
@@ -121,4 +127,12 @@ public class DetalhesClienteActivity extends AppCompatActivity {
     }
 
 
+    public String getEndereco() {
+
+        return mLogradouro.getText().toString() +
+                mBairro.getText().toString() +
+                mCep.getText().toString() +
+                mNumero.getText().toString() +
+                mComplemento.getText().toString();
+    }
 }

@@ -192,10 +192,10 @@ public class DashboardActivity extends AppCompatActivity {
                     for (int i = 0; i < myApplication.getClientes().size(); i++) {
                         int j = i / 2;
                         if (value == i) {
-                            return myApplication.getClientes().get(i).getNome().substring(0, 2);
+                            return myApplication.getClientes().get(i).getNome().substring(0, 3);
                         }
                         if (value == j) {
-                            return myApplication.getClientes().get(j).getNome().substring(0, 1);
+                            return myApplication.getClientes().get(j).getNome().substring(0, 2);
                         }
 
                     }

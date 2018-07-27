@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:id="@+id/layout_extrato"
     tools:context="com.dynatron.projeto.massagem.Activity.ExtratoActivity">
 
     <android.support.v7.widget.Toolbar

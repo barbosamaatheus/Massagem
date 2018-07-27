@@ -342,7 +342,7 @@ public class MyApplication extends Application {
 
         int valorM = 0;
         for (Cliente c : clientes) {
-            if (c.getNome().toString().equals(nome)) {
+            if (c.getNome().equalsIgnoreCase(nome)) {
                 valorM = Integer.parseInt(c.getNumTotal()) + Integer.parseInt(value);
                 db.collection("cliente").document(buscarId(nome))
                         .update(

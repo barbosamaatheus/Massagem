@@ -16,7 +16,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:fontFamily="serif-monospace"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="NOME"
             android:textColor="@android:color/black"
             android:textSize="20dp"
